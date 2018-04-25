@@ -1,4 +1,4 @@
-package com.rivis.feng.website.constants;
+package com.rivis.feng.website.common.constant;
 
 public class Constants {
 
