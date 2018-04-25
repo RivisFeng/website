@@ -21,10 +21,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/loginIn", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginIn")
     public ResultDataDto loginIn(LoginInDto loginInDto) {
         ResultDataDto resultDataDto = userService.loginIn(loginInDto);
-        return ResultDataUtil.success(resultDataDto);
+        return resultDataDto;
     }
 
 
