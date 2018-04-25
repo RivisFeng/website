@@ -1,8 +1,10 @@
 server:
-  port: 8080
+  port: '8081'
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/officialwebsite
-    username: root
-    password: RivisFeng0310
+    driver-class-name: 'com.mysql.jdbc.Driver'
+    url: 'jdbc:mysql://localhost:3306/officialwebsite?useSSL=true'
+    username: 'root'
+    password: '0000'
+mybatis:
+  mapper-locations: 'classpath:mapper/*Mapper.xml'
