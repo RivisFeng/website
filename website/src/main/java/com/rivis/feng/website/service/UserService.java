@@ -1,4 +1,4 @@
-package com.rivis.feng.website.Service;
+package com.rivis.feng.website.service;
 
 import com.rivis.feng.website.pojo.dto.LoginInDto;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;

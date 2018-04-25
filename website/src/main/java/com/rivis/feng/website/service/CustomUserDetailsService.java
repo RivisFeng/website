@@ -1,4 +1,4 @@
-package com.rivis.feng.website.Service;
+package com.rivis.feng.website.service;
 
 import com.rivis.feng.website.pojo.po.User;
 import org.springframework.beans.factory.annotation.Autowired;

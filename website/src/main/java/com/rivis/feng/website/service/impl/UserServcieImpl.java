@@ -1,6 +1,6 @@
-package com.rivis.feng.website.Service.impl;
+package com.rivis.feng.website.service.impl;
 
-import com.rivis.feng.website.Service.UserService;
+import com.rivis.feng.website.service.UserService;
 import com.rivis.feng.website.common.util.ResultDataUtil;
 import com.rivis.feng.website.dao.UserMapper;
 import com.rivis.feng.website.pojo.dto.LoginInDto;
