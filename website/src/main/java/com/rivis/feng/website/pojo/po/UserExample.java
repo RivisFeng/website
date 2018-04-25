@@ -4,7 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 用户示例
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @despaction
+ */
 public class UserExample {
+
+    /** 排序. */
     protected String orderByClause;
 
     protected boolean distinct;

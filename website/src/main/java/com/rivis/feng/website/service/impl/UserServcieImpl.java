@@ -13,6 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 用户逻辑层
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @despaction
+ */
 @Service
 public class UserServcieImpl implements UserService {
 

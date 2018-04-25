@@ -2,25 +2,43 @@ package com.rivis.feng.website.pojo.po;
 
 import java.util.Date;
 
+/**
+ * 用户实体类
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @despaction
+ */
 public class User {
+
+    /** 用户ID. */
     private String userId;
 
+    /** 用户姓名. */
     private String userName;
 
+    /** 用户密码. */
     private String userPassword;
 
+    /** 用户生日. */
     private Date userBirthday;
 
+    /** 用户性别. */
     private String userGender;
 
+    /** 用户手机. */
     private String userPhone;
 
+    /** 用户住址. */
     private String userAddress;
 
+    /** 用户是否已经删除. */
     private Integer userDelete;
 
+    /** 用户是否是VIP. */
     private Integer userVip;
 
+    /** 用户邮箱. */
     private String userMail;
 
     public String getUserId() {

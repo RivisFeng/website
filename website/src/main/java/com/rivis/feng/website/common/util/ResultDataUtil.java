@@ -3,8 +3,21 @@ package com.rivis.feng.website.common.util;
 import com.rivis.feng.website.common.enums.BaseEnum;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;
 
+/**
+ * 结果工具类
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @despecation
+ */
 public class ResultDataUtil {
 
+    /**
+     * 成功
+     *
+     * @author Rivis
+     * @return {ResultDataDto}
+     */
     public static ResultDataDto success() {
         ResultDataDto resultDataDto = new ResultDataDto();
         resultDataDto.setCode(BaseEnum.SUCCESS.getCode());
@@ -12,6 +25,13 @@ public class ResultDataUtil {
         return resultDataDto;
     }
 
+    /**
+     * 成功
+     *
+     * @author Rivis
+     * @param result {Object}
+     * @return {ResultDataDto}
+     */
     public static ResultDataDto success(Object result) {
         ResultDataDto resultDataDto = new ResultDataDto();
         resultDataDto.setCode(BaseEnum.SUCCESS.getCode());
@@ -20,6 +40,15 @@ public class ResultDataUtil {
         return resultDataDto;
     }
 
+    /**
+     * 成功
+     *
+     * @author Rivis
+     * @param code {Integer}
+     * @param message {String}
+     * @param result {Object}
+     * @return {ResultDataDto}
+     */
     public static ResultDataDto success(Integer code, String message, Object result) {
         ResultDataDto resultDataDto = new ResultDataDto();
         resultDataDto.setCode(code);
@@ -28,13 +57,27 @@ public class ResultDataUtil {
         return resultDataDto;
     }
 
-    public static ResultDataDto error(Object result) {
+    /**
+     * 失败
+     *
+     * @author Rivis
+     * @return {ResultDataDto}
+     */
+    public static ResultDataDto error() {
         ResultDataDto resultDataDto = new ResultDataDto();
         resultDataDto.setCode(BaseEnum.ERROR.getCode());
         resultDataDto.setMessage(BaseEnum.ERROR.getMessage());
         return resultDataDto;
     }
 
+    /**
+     * 失败
+     *
+     * @author Rivis
+     * @param code {Integer}
+     * @param message {String}
+     * @return {ResultDataDto}
+     */
     public static ResultDataDto error(Integer code, String message) {
         ResultDataDto resultDataDto = new ResultDataDto();
         resultDataDto.setCode(code);

@@ -1,5 +1,12 @@
 package com.rivis.feng.website.common.constant;
 
+/**
+ * 常量类
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @Description:
+ */
 public class Constants {
 
     /** HTTP POST请求. */

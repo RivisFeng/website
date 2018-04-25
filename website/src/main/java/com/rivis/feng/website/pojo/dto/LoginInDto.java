@@ -1,5 +1,12 @@
 package com.rivis.feng.website.pojo.dto;
 
+/**
+ * 登录入参
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @despaction
+ */
 public class LoginInDto {
 
     private String userPhone;

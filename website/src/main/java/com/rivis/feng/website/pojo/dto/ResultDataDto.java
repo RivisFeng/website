@@ -1,5 +1,12 @@
 package com.rivis.feng.website.pojo.dto;
 
+/**
+ * 结果类
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @param <T>
+ */
 public class ResultDataDto<T> {
 
     private Integer code;

@@ -76,6 +76,8 @@
     user_id, user_name, user_password, user_birthday, user_gender, user_phone, user_address, 
     user_delete, user_vip, user_mail
   </sql>
+
+  <!--根据表任意字段查询-->
   <select id="selectByExample" resultMap="BaseResultMap"
           parameterType="com.rivis.feng.website.pojo.po.UserExample" >
     select
@@ -91,22 +93,30 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <!--根据主键查询用户信息-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from user
     where user_id = #{userId,jdbcType=VARCHAR}
   </select>
+
+  <!--根据主键删除用户-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
+
+  <!--根据表任意字段删除用户-->
   <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.UserExample" >
     delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
+  <!--插入用户-->
   <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.User" >
     insert into user (user_id, user_name, user_password, 
       user_birthday, user_gender, user_phone, 
@@ -117,6 +127,8 @@
       #{userAddress,jdbcType=VARCHAR}, #{userDelete,jdbcType=INTEGER}, #{userVip,jdbcType=INTEGER}, 
       #{userMail,jdbcType=VARCHAR})
   </insert>
+
+  <!--分局字段插入用户-->
   <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -184,6 +196,8 @@
       </if>
     </trim>
   </insert>
+
+  <!--根据表任意字段查询用户记录数-->
   <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.UserExample"
           resultType="java.lang.Integer" >
     select count(*) from user
@@ -191,6 +205,8 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
+  <!--根据表任意字段更新用户需要插入的信息-->
   <update id="updateByExampleSelective" parameterType="map" >
     update user
     <set >
@@ -229,6 +245,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <!--根据任意字段更新用户信息-->
   <update id="updateByExample" parameterType="map" >
     update user
     set user_id = #{record.userId,jdbcType=VARCHAR},
@@ -245,6 +263,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <!--根据表主键更新用户需要更新的信息-->
   <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.User" >
     update user
     <set >
@@ -278,6 +298,8 @@
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+
+  <!--根据表主键更新用户记录-->
   <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.User" >
     update user
     set user_name = #{userName,jdbcType=VARCHAR},

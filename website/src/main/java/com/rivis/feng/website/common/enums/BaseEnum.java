@@ -1,5 +1,12 @@
 package com.rivis.feng.website.common.enums;
 
+/**
+ * 常用枚举类
+ *
+ * @Auther: Rivis
+ * @Date: 2018/4/18 18:27
+ * @Description:
+ */
 public enum BaseEnum {
 
     SUCCESS(000000, "成功"),

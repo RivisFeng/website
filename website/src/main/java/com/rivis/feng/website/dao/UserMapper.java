@@ -6,6 +6,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 用户数据库交互接口
+ *
+ * @author Rivis
+ * @date 2018-04-25
+ * @despaction
+ */
 @Repository
 public interface UserMapper {
     int countByExample(UserExample example);
