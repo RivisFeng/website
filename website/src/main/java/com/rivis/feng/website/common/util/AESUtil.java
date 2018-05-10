@@ -22,7 +22,7 @@ public class AESUtil {
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 
     /** 密钥. */
-    private static final String KEY = "mrkuluyukikikuch";
+    private static final String KEY = "MikuruYukiKikuCJ";
 
     /**
      * 生成密钥
