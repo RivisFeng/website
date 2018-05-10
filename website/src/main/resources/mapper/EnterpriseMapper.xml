@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.EnterpriseMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.Enterprise" >
+    <id column="enterprise_id" property="enterpriseId" jdbcType="BIGINT" />
+    <result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="enterprise_city_id" property="enterpriseCityId" jdbcType="BIGINT" />
+    <result column="enterprise_create_time" property="enterpriseCreateTime" jdbcType="TIMESTAMP" />
+    <result column="enterprise_state" property="enterpriseState" jdbcType="VARCHAR" />
+    <result column="enterprise_address" property="enterpriseAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    enterprise_id, enterprise_name, enterprise_city_id, enterprise_create_time, enterprise_state, 
+    enterprise_address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.EnterpriseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from enterprise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from enterprise
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.EnterpriseExample" >
+    delete from enterprise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.Enterprise" >
+    insert into enterprise (enterprise_id, enterprise_name, enterprise_city_id, 
+      enterprise_create_time, enterprise_state, 
+      enterprise_address)
+    values (#{enterpriseId,jdbcType=BIGINT}, #{enterpriseName,jdbcType=VARCHAR}, #{enterpriseCityId,jdbcType=BIGINT}, 
+      #{enterpriseCreateTime,jdbcType=TIMESTAMP}, #{enterpriseState,jdbcType=VARCHAR}, 
+      #{enterpriseAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.Enterprise" >
+    insert into enterprise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        enterprise_id,
+      </if>
+      <if test="enterpriseName != null" >
+        enterprise_name,
+      </if>
+      <if test="enterpriseCityId != null" >
+        enterprise_city_id,
+      </if>
+      <if test="enterpriseCreateTime != null" >
+        enterprise_create_time,
+      </if>
+      <if test="enterpriseState != null" >
+        enterprise_state,
+      </if>
+      <if test="enterpriseAddress != null" >
+        enterprise_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="enterpriseName != null" >
+        #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseCityId != null" >
+        #{enterpriseCityId,jdbcType=BIGINT},
+      </if>
+      <if test="enterpriseCreateTime != null" >
+        #{enterpriseCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterpriseState != null" >
+        #{enterpriseState,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseAddress != null" >
+        #{enterpriseAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.EnterpriseExample" resultType="java.lang.Integer" >
+    select count(*) from enterprise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update enterprise
+    <set >
+      <if test="record.enterpriseId != null" >
+        enterprise_id = #{record.enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.enterpriseName != null" >
+        enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseCityId != null" >
+        enterprise_city_id = #{record.enterpriseCityId,jdbcType=BIGINT},
+      </if>
+      <if test="record.enterpriseCreateTime != null" >
+        enterprise_create_time = #{record.enterpriseCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enterpriseState != null" >
+        enterprise_state = #{record.enterpriseState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseAddress != null" >
+        enterprise_address = #{record.enterpriseAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update enterprise
+    set enterprise_id = #{record.enterpriseId,jdbcType=BIGINT},
+      enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      enterprise_city_id = #{record.enterpriseCityId,jdbcType=BIGINT},
+      enterprise_create_time = #{record.enterpriseCreateTime,jdbcType=TIMESTAMP},
+      enterprise_state = #{record.enterpriseState,jdbcType=VARCHAR},
+      enterprise_address = #{record.enterpriseAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.Enterprise" >
+    update enterprise
+    <set >
+      <if test="enterpriseName != null" >
+        enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseCityId != null" >
+        enterprise_city_id = #{enterpriseCityId,jdbcType=BIGINT},
+      </if>
+      <if test="enterpriseCreateTime != null" >
+        enterprise_create_time = #{enterpriseCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterpriseState != null" >
+        enterprise_state = #{enterpriseState,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseAddress != null" >
+        enterprise_address = #{enterpriseAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.Enterprise" >
+    update enterprise
+    set enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      enterprise_city_id = #{enterpriseCityId,jdbcType=BIGINT},
+      enterprise_create_time = #{enterpriseCreateTime,jdbcType=TIMESTAMP},
+      enterprise_state = #{enterpriseState,jdbcType=VARCHAR},
+      enterprise_address = #{enterpriseAddress,jdbcType=VARCHAR}
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </update>
+</mapper>

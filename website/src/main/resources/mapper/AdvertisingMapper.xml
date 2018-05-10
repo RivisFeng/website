@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.AdvertisingMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.Advertising" >
+    <id column="advertising_id" property="advertisingId" jdbcType="BIGINT" />
+    <result column="advertising_name" property="advertisingName" jdbcType="VARCHAR" />
+    <result column="advertising_manufacturer" property="advertisingManufacturer" jdbcType="VARCHAR" />
+    <result column="advertising_location" property="advertisingLocation" jdbcType="VARCHAR" />
+    <result column="advertising_cost" property="advertisingCost" jdbcType="VARCHAR" />
+    <result column="advertising_create_time" property="advertisingCreateTime" jdbcType="TIMESTAMP" />
+    <result column="advertising_start_time" property="advertisingStartTime" jdbcType="TIMESTAMP" />
+    <result column="advertising_end_time" property="advertisingEndTime" jdbcType="TIMESTAMP" />
+    <result column="advertising_state" property="advertisingState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    advertising_id, advertising_name, advertising_manufacturer, advertising_location, 
+    advertising_cost, advertising_create_time, advertising_start_time, advertising_end_time, 
+    advertising_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.AdvertisingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from advertising
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from advertising
+    where advertising_id = #{advertisingId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from advertising
+    where advertising_id = #{advertisingId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.AdvertisingExample" >
+    delete from advertising
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.Advertising" >
+    insert into advertising (advertising_id, advertising_name, advertising_manufacturer, 
+      advertising_location, advertising_cost, advertising_create_time, 
+      advertising_start_time, advertising_end_time, 
+      advertising_state)
+    values (#{advertisingId,jdbcType=BIGINT}, #{advertisingName,jdbcType=VARCHAR}, #{advertisingManufacturer,jdbcType=VARCHAR}, 
+      #{advertisingLocation,jdbcType=VARCHAR}, #{advertisingCost,jdbcType=VARCHAR}, #{advertisingCreateTime,jdbcType=TIMESTAMP}, 
+      #{advertisingStartTime,jdbcType=TIMESTAMP}, #{advertisingEndTime,jdbcType=TIMESTAMP}, 
+      #{advertisingState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.Advertising" >
+    insert into advertising
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advertisingId != null" >
+        advertising_id,
+      </if>
+      <if test="advertisingName != null" >
+        advertising_name,
+      </if>
+      <if test="advertisingManufacturer != null" >
+        advertising_manufacturer,
+      </if>
+      <if test="advertisingLocation != null" >
+        advertising_location,
+      </if>
+      <if test="advertisingCost != null" >
+        advertising_cost,
+      </if>
+      <if test="advertisingCreateTime != null" >
+        advertising_create_time,
+      </if>
+      <if test="advertisingStartTime != null" >
+        advertising_start_time,
+      </if>
+      <if test="advertisingEndTime != null" >
+        advertising_end_time,
+      </if>
+      <if test="advertisingState != null" >
+        advertising_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advertisingId != null" >
+        #{advertisingId,jdbcType=BIGINT},
+      </if>
+      <if test="advertisingName != null" >
+        #{advertisingName,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingManufacturer != null" >
+        #{advertisingManufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingLocation != null" >
+        #{advertisingLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingCost != null" >
+        #{advertisingCost,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingCreateTime != null" >
+        #{advertisingCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertisingStartTime != null" >
+        #{advertisingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertisingEndTime != null" >
+        #{advertisingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertisingState != null" >
+        #{advertisingState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.AdvertisingExample" resultType="java.lang.Integer" >
+    select count(*) from advertising
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update advertising
+    <set >
+      <if test="record.advertisingId != null" >
+        advertising_id = #{record.advertisingId,jdbcType=BIGINT},
+      </if>
+      <if test="record.advertisingName != null" >
+        advertising_name = #{record.advertisingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.advertisingManufacturer != null" >
+        advertising_manufacturer = #{record.advertisingManufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.advertisingLocation != null" >
+        advertising_location = #{record.advertisingLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.advertisingCost != null" >
+        advertising_cost = #{record.advertisingCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.advertisingCreateTime != null" >
+        advertising_create_time = #{record.advertisingCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.advertisingStartTime != null" >
+        advertising_start_time = #{record.advertisingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.advertisingEndTime != null" >
+        advertising_end_time = #{record.advertisingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.advertisingState != null" >
+        advertising_state = #{record.advertisingState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update advertising
+    set advertising_id = #{record.advertisingId,jdbcType=BIGINT},
+      advertising_name = #{record.advertisingName,jdbcType=VARCHAR},
+      advertising_manufacturer = #{record.advertisingManufacturer,jdbcType=VARCHAR},
+      advertising_location = #{record.advertisingLocation,jdbcType=VARCHAR},
+      advertising_cost = #{record.advertisingCost,jdbcType=VARCHAR},
+      advertising_create_time = #{record.advertisingCreateTime,jdbcType=TIMESTAMP},
+      advertising_start_time = #{record.advertisingStartTime,jdbcType=TIMESTAMP},
+      advertising_end_time = #{record.advertisingEndTime,jdbcType=TIMESTAMP},
+      advertising_state = #{record.advertisingState,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.Advertising" >
+    update advertising
+    <set >
+      <if test="advertisingName != null" >
+        advertising_name = #{advertisingName,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingManufacturer != null" >
+        advertising_manufacturer = #{advertisingManufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingLocation != null" >
+        advertising_location = #{advertisingLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingCost != null" >
+        advertising_cost = #{advertisingCost,jdbcType=VARCHAR},
+      </if>
+      <if test="advertisingCreateTime != null" >
+        advertising_create_time = #{advertisingCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertisingStartTime != null" >
+        advertising_start_time = #{advertisingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertisingEndTime != null" >
+        advertising_end_time = #{advertisingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertisingState != null" >
+        advertising_state = #{advertisingState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where advertising_id = #{advertisingId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.Advertising" >
+    update advertising
+    set advertising_name = #{advertisingName,jdbcType=VARCHAR},
+      advertising_manufacturer = #{advertisingManufacturer,jdbcType=VARCHAR},
+      advertising_location = #{advertisingLocation,jdbcType=VARCHAR},
+      advertising_cost = #{advertisingCost,jdbcType=VARCHAR},
+      advertising_create_time = #{advertisingCreateTime,jdbcType=TIMESTAMP},
+      advertising_start_time = #{advertisingStartTime,jdbcType=TIMESTAMP},
+      advertising_end_time = #{advertisingEndTime,jdbcType=TIMESTAMP},
+      advertising_state = #{advertisingState,jdbcType=VARCHAR}
+    where advertising_id = #{advertisingId,jdbcType=BIGINT}
+  </update>
+</mapper>

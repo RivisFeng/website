@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.CurriculumAppraiseReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.CurriculumAppraiseReply" >
+    <id column="reply_id" property="replyId" jdbcType="BIGINT" />
+    <result column="reply_appraise_id" property="replyAppraiseId" jdbcType="BIGINT" />
+    <result column="reply_user_id" property="replyUserId" jdbcType="BIGINT" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+    <result column="reply_is_show" property="replyIsShow" jdbcType="VARCHAR" />
+    <result column="reply_create_time" property="replyCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    reply_id, reply_appraise_id, reply_user_id, reply_content, reply_is_show, reply_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseReplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from curriculum_appraise_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from curriculum_appraise_reply
+    where reply_id = #{replyId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from curriculum_appraise_reply
+    where reply_id = #{replyId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseReplyExample" >
+    delete from curriculum_appraise_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseReply" >
+    insert into curriculum_appraise_reply (reply_id, reply_appraise_id, reply_user_id, 
+      reply_content, reply_is_show, reply_create_time
+      )
+    values (#{replyId,jdbcType=BIGINT}, #{replyAppraiseId,jdbcType=BIGINT}, #{replyUserId,jdbcType=BIGINT}, 
+      #{replyContent,jdbcType=VARCHAR}, #{replyIsShow,jdbcType=VARCHAR}, #{replyCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseReply" >
+    insert into curriculum_appraise_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        reply_id,
+      </if>
+      <if test="replyAppraiseId != null" >
+        reply_appraise_id,
+      </if>
+      <if test="replyUserId != null" >
+        reply_user_id,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+      <if test="replyIsShow != null" >
+        reply_is_show,
+      </if>
+      <if test="replyCreateTime != null" >
+        reply_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=BIGINT},
+      </if>
+      <if test="replyAppraiseId != null" >
+        #{replyAppraiseId,jdbcType=BIGINT},
+      </if>
+      <if test="replyUserId != null" >
+        #{replyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyIsShow != null" >
+        #{replyIsShow,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCreateTime != null" >
+        #{replyCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseReplyExample" resultType="java.lang.Integer" >
+    select count(*) from curriculum_appraise_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update curriculum_appraise_reply
+    <set >
+      <if test="record.replyId != null" >
+        reply_id = #{record.replyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.replyAppraiseId != null" >
+        reply_appraise_id = #{record.replyAppraiseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.replyUserId != null" >
+        reply_user_id = #{record.replyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.replyContent != null" >
+        reply_content = #{record.replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyIsShow != null" >
+        reply_is_show = #{record.replyIsShow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyCreateTime != null" >
+        reply_create_time = #{record.replyCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update curriculum_appraise_reply
+    set reply_id = #{record.replyId,jdbcType=BIGINT},
+      reply_appraise_id = #{record.replyAppraiseId,jdbcType=BIGINT},
+      reply_user_id = #{record.replyUserId,jdbcType=BIGINT},
+      reply_content = #{record.replyContent,jdbcType=VARCHAR},
+      reply_is_show = #{record.replyIsShow,jdbcType=VARCHAR},
+      reply_create_time = #{record.replyCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseReply" >
+    update curriculum_appraise_reply
+    <set >
+      <if test="replyAppraiseId != null" >
+        reply_appraise_id = #{replyAppraiseId,jdbcType=BIGINT},
+      </if>
+      <if test="replyUserId != null" >
+        reply_user_id = #{replyUserId,jdbcType=BIGINT},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyIsShow != null" >
+        reply_is_show = #{replyIsShow,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCreateTime != null" >
+        reply_create_time = #{replyCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where reply_id = #{replyId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseReply" >
+    update curriculum_appraise_reply
+    set reply_appraise_id = #{replyAppraiseId,jdbcType=BIGINT},
+      reply_user_id = #{replyUserId,jdbcType=BIGINT},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      reply_is_show = #{replyIsShow,jdbcType=VARCHAR},
+      reply_create_time = #{replyCreateTime,jdbcType=TIMESTAMP}
+    where reply_id = #{replyId,jdbcType=BIGINT}
+  </update>
+</mapper>

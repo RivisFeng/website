@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.SubjectOrderWechatMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.SubjectOrderWechat" >
+    <id column="order_wechat_id" property="orderWechatId" jdbcType="BIGINT" />
+    <result column="subject_order_id" property="subjectOrderId" jdbcType="BIGINT" />
+    <result column="order_wechat_user_id" property="orderWechatUserId" jdbcType="BIGINT" />
+    <result column="order_wechat_state" property="orderWechatState" jdbcType="VARCHAR" />
+    <result column="order_wechat_create_time" property="orderWechatCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_wechat_id, subject_order_id, order_wechat_user_id, order_wechat_state, order_wechat_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderWechatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from subject_order_wechat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from subject_order_wechat
+    where order_wechat_id = #{orderWechatId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from subject_order_wechat
+    where order_wechat_id = #{orderWechatId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderWechatExample" >
+    delete from subject_order_wechat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderWechat" >
+    insert into subject_order_wechat (order_wechat_id, subject_order_id, order_wechat_user_id, 
+      order_wechat_state, order_wechat_create_time
+      )
+    values (#{orderWechatId,jdbcType=BIGINT}, #{subjectOrderId,jdbcType=BIGINT}, #{orderWechatUserId,jdbcType=BIGINT}, 
+      #{orderWechatState,jdbcType=VARCHAR}, #{orderWechatCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderWechat" >
+    insert into subject_order_wechat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderWechatId != null" >
+        order_wechat_id,
+      </if>
+      <if test="subjectOrderId != null" >
+        subject_order_id,
+      </if>
+      <if test="orderWechatUserId != null" >
+        order_wechat_user_id,
+      </if>
+      <if test="orderWechatState != null" >
+        order_wechat_state,
+      </if>
+      <if test="orderWechatCreateTime != null" >
+        order_wechat_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderWechatId != null" >
+        #{orderWechatId,jdbcType=BIGINT},
+      </if>
+      <if test="subjectOrderId != null" >
+        #{subjectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderWechatUserId != null" >
+        #{orderWechatUserId,jdbcType=BIGINT},
+      </if>
+      <if test="orderWechatState != null" >
+        #{orderWechatState,jdbcType=VARCHAR},
+      </if>
+      <if test="orderWechatCreateTime != null" >
+        #{orderWechatCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderWechatExample" resultType="java.lang.Integer" >
+    select count(*) from subject_order_wechat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update subject_order_wechat
+    <set >
+      <if test="record.orderWechatId != null" >
+        order_wechat_id = #{record.orderWechatId,jdbcType=BIGINT},
+      </if>
+      <if test="record.subjectOrderId != null" >
+        subject_order_id = #{record.subjectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderWechatUserId != null" >
+        order_wechat_user_id = #{record.orderWechatUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderWechatState != null" >
+        order_wechat_state = #{record.orderWechatState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderWechatCreateTime != null" >
+        order_wechat_create_time = #{record.orderWechatCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update subject_order_wechat
+    set order_wechat_id = #{record.orderWechatId,jdbcType=BIGINT},
+      subject_order_id = #{record.subjectOrderId,jdbcType=BIGINT},
+      order_wechat_user_id = #{record.orderWechatUserId,jdbcType=BIGINT},
+      order_wechat_state = #{record.orderWechatState,jdbcType=VARCHAR},
+      order_wechat_create_time = #{record.orderWechatCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderWechat" >
+    update subject_order_wechat
+    <set >
+      <if test="subjectOrderId != null" >
+        subject_order_id = #{subjectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderWechatUserId != null" >
+        order_wechat_user_id = #{orderWechatUserId,jdbcType=BIGINT},
+      </if>
+      <if test="orderWechatState != null" >
+        order_wechat_state = #{orderWechatState,jdbcType=VARCHAR},
+      </if>
+      <if test="orderWechatCreateTime != null" >
+        order_wechat_create_time = #{orderWechatCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_wechat_id = #{orderWechatId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderWechat" >
+    update subject_order_wechat
+    set subject_order_id = #{subjectOrderId,jdbcType=BIGINT},
+      order_wechat_user_id = #{orderWechatUserId,jdbcType=BIGINT},
+      order_wechat_state = #{orderWechatState,jdbcType=VARCHAR},
+      order_wechat_create_time = #{orderWechatCreateTime,jdbcType=TIMESTAMP}
+    where order_wechat_id = #{orderWechatId,jdbcType=BIGINT}
+  </update>
+</mapper>

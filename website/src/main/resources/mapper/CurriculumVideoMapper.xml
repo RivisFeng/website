@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.CurriculumVideoMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.CurriculumVideo" >
+    <id column="video_id" property="videoId" jdbcType="BIGINT" />
+    <result column="video_curriculum_id" property="videoCurriculumId" jdbcType="BIGINT" />
+    <result column="video_name" property="videoName" jdbcType="VARCHAR" />
+    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+    <result column="video_sort" property="videoSort" jdbcType="VARCHAR" />
+    <result column="video_state" property="videoState" jdbcType="VARCHAR" />
+    <result column="video_create_time" property="videoCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    video_id, video_curriculum_id, video_name, video_url, video_sort, video_state, video_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.CurriculumVideoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from curriculum_video
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from curriculum_video
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from curriculum_video
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumVideoExample" >
+    delete from curriculum_video
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.CurriculumVideo" >
+    insert into curriculum_video (video_id, video_curriculum_id, video_name, 
+      video_url, video_sort, video_state, 
+      video_create_time)
+    values (#{videoId,jdbcType=BIGINT}, #{videoCurriculumId,jdbcType=BIGINT}, #{videoName,jdbcType=VARCHAR}, 
+      #{videoUrl,jdbcType=VARCHAR}, #{videoSort,jdbcType=VARCHAR}, #{videoState,jdbcType=VARCHAR}, 
+      #{videoCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumVideo" >
+    insert into curriculum_video
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videoId != null" >
+        video_id,
+      </if>
+      <if test="videoCurriculumId != null" >
+        video_curriculum_id,
+      </if>
+      <if test="videoName != null" >
+        video_name,
+      </if>
+      <if test="videoUrl != null" >
+        video_url,
+      </if>
+      <if test="videoSort != null" >
+        video_sort,
+      </if>
+      <if test="videoState != null" >
+        video_state,
+      </if>
+      <if test="videoCreateTime != null" >
+        video_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videoId != null" >
+        #{videoId,jdbcType=BIGINT},
+      </if>
+      <if test="videoCurriculumId != null" >
+        #{videoCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="videoName != null" >
+        #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSort != null" >
+        #{videoSort,jdbcType=VARCHAR},
+      </if>
+      <if test="videoState != null" >
+        #{videoState,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCreateTime != null" >
+        #{videoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumVideoExample" resultType="java.lang.Integer" >
+    select count(*) from curriculum_video
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update curriculum_video
+    <set >
+      <if test="record.videoId != null" >
+        video_id = #{record.videoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.videoCurriculumId != null" >
+        video_curriculum_id = #{record.videoCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="record.videoName != null" >
+        video_name = #{record.videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoUrl != null" >
+        video_url = #{record.videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoSort != null" >
+        video_sort = #{record.videoSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoState != null" >
+        video_state = #{record.videoState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoCreateTime != null" >
+        video_create_time = #{record.videoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update curriculum_video
+    set video_id = #{record.videoId,jdbcType=BIGINT},
+      video_curriculum_id = #{record.videoCurriculumId,jdbcType=BIGINT},
+      video_name = #{record.videoName,jdbcType=VARCHAR},
+      video_url = #{record.videoUrl,jdbcType=VARCHAR},
+      video_sort = #{record.videoSort,jdbcType=VARCHAR},
+      video_state = #{record.videoState,jdbcType=VARCHAR},
+      video_create_time = #{record.videoCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumVideo" >
+    update curriculum_video
+    <set >
+      <if test="videoCurriculumId != null" >
+        video_curriculum_id = #{videoCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="videoName != null" >
+        video_name = #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSort != null" >
+        video_sort = #{videoSort,jdbcType=VARCHAR},
+      </if>
+      <if test="videoState != null" >
+        video_state = #{videoState,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCreateTime != null" >
+        video_create_time = #{videoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.CurriculumVideo" >
+    update curriculum_video
+    set video_curriculum_id = #{videoCurriculumId,jdbcType=BIGINT},
+      video_name = #{videoName,jdbcType=VARCHAR},
+      video_url = #{videoUrl,jdbcType=VARCHAR},
+      video_sort = #{videoSort,jdbcType=VARCHAR},
+      video_state = #{videoState,jdbcType=VARCHAR},
+      video_create_time = #{videoCreateTime,jdbcType=TIMESTAMP}
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </update>
+</mapper>

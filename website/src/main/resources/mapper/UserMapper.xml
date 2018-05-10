@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rivis.feng.website.dao.UserMapper" >
   <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.User" >
-    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_pricture" property="userPricture" jdbcType="VARCHAR" />
     <result column="user_birthday" property="userBirthday" jdbcType="TIMESTAMP" />
-    <result column="user_gender" property="userGender" jdbcType="CHAR" />
+    <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
     <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_city_id" property="userCityId" jdbcType="BIGINT" />
     <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
-    <result column="user_delete" property="userDelete" jdbcType="INTEGER" />
-    <result column="user_vip" property="userVip" jdbcType="INTEGER" />
+    <result column="user_is_delete" property="userIsDelete" jdbcType="VARCHAR" />
+    <result column="user_is_vip" property="userIsVip" jdbcType="VARCHAR" />
     <result column="user_mail" property="userMail" jdbcType="VARCHAR" />
+    <result column="user_create_time" property="userCreateTime" jdbcType="TIMESTAMP" />
+    <result column="user_from" property="userFrom" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,13 +76,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_name, user_password, user_birthday, user_gender, user_phone, user_address, 
-    user_delete, user_vip, user_mail
+    user_id, user_name, user_password, user_pricture, user_birthday, user_gender, user_phone, 
+    user_city_id, user_address, user_is_delete, user_is_vip, user_mail, user_create_time, 
+    user_from
   </sql>
-
-  <!--根据表任意字段查询-->
-  <select id="selectByExample" resultMap="BaseResultMap"
-          parameterType="com.rivis.feng.website.pojo.po.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.UserExample" >
     select
     <if test="distinct" >
       distinct
@@ -93,42 +94,34 @@
       order by ${orderByClause}
     </if>
   </select>
-
-  <!--根据主键查询用户信息-->
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from user
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
   </select>
-
-  <!--根据主键删除用户-->
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from user
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
   </delete>
-
-  <!--根据表任意字段删除用户-->
   <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.UserExample" >
     delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-
-  <!--插入用户-->
   <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.User" >
     insert into user (user_id, user_name, user_password, 
-      user_birthday, user_gender, user_phone, 
-      user_address, user_delete, user_vip, 
-      user_mail)
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
-      #{userBirthday,jdbcType=TIMESTAMP}, #{userGender,jdbcType=CHAR}, #{userPhone,jdbcType=VARCHAR}, 
-      #{userAddress,jdbcType=VARCHAR}, #{userDelete,jdbcType=INTEGER}, #{userVip,jdbcType=INTEGER}, 
-      #{userMail,jdbcType=VARCHAR})
+      user_pricture, user_birthday, user_gender, 
+      user_phone, user_city_id, user_address, 
+      user_is_delete, user_is_vip, user_mail, 
+      user_create_time, user_from)
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userPricture,jdbcType=VARCHAR}, #{userBirthday,jdbcType=TIMESTAMP}, #{userGender,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{userCityId,jdbcType=BIGINT}, #{userAddress,jdbcType=VARCHAR}, 
+      #{userIsDelete,jdbcType=VARCHAR}, #{userIsVip,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, 
+      #{userCreateTime,jdbcType=TIMESTAMP}, #{userFrom,jdbcType=VARCHAR})
   </insert>
-
-  <!--分局字段插入用户-->
   <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -141,6 +134,9 @@
       <if test="userPassword != null" >
         user_password,
       </if>
+      <if test="userPricture != null" >
+        user_pricture,
+      </if>
       <if test="userBirthday != null" >
         user_birthday,
       </if>
@@ -150,22 +146,31 @@
       <if test="userPhone != null" >
         user_phone,
       </if>
+      <if test="userCityId != null" >
+        user_city_id,
+      </if>
       <if test="userAddress != null" >
         user_address,
       </if>
-      <if test="userDelete != null" >
-        user_delete,
+      <if test="userIsDelete != null" >
+        user_is_delete,
       </if>
-      <if test="userVip != null" >
-        user_vip,
+      <if test="userIsVip != null" >
+        user_is_vip,
       </if>
       <if test="userMail != null" >
         user_mail,
       </if>
+      <if test="userCreateTime != null" >
+        user_create_time,
+      </if>
+      <if test="userFrom != null" >
+        user_from,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
@@ -173,45 +178,52 @@
       <if test="userPassword != null" >
         #{userPassword,jdbcType=VARCHAR},
       </if>
+      <if test="userPricture != null" >
+        #{userPricture,jdbcType=VARCHAR},
+      </if>
       <if test="userBirthday != null" >
         #{userBirthday,jdbcType=TIMESTAMP},
       </if>
       <if test="userGender != null" >
-        #{userGender,jdbcType=CHAR},
+        #{userGender,jdbcType=VARCHAR},
       </if>
       <if test="userPhone != null" >
         #{userPhone,jdbcType=VARCHAR},
       </if>
+      <if test="userCityId != null" >
+        #{userCityId,jdbcType=BIGINT},
+      </if>
       <if test="userAddress != null" >
         #{userAddress,jdbcType=VARCHAR},
       </if>
-      <if test="userDelete != null" >
-        #{userDelete,jdbcType=INTEGER},
+      <if test="userIsDelete != null" >
+        #{userIsDelete,jdbcType=VARCHAR},
       </if>
-      <if test="userVip != null" >
-        #{userVip,jdbcType=INTEGER},
+      <if test="userIsVip != null" >
+        #{userIsVip,jdbcType=VARCHAR},
       </if>
       <if test="userMail != null" >
         #{userMail,jdbcType=VARCHAR},
       </if>
+      <if test="userCreateTime != null" >
+        #{userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userFrom != null" >
+        #{userFrom,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-
-  <!--根据表任意字段查询用户记录数-->
-  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.UserExample"
-          resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.UserExample" resultType="java.lang.Integer" >
     select count(*) from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-
-  <!--根据表任意字段更新用户需要插入的信息-->
   <update id="updateByExampleSelective" parameterType="map" >
     update user
     <set >
       <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=VARCHAR},
+        user_id = #{record.userId,jdbcType=BIGINT},
       </if>
       <if test="record.userName != null" >
         user_name = #{record.userName,jdbcType=VARCHAR},
@@ -219,52 +231,64 @@
       <if test="record.userPassword != null" >
         user_password = #{record.userPassword,jdbcType=VARCHAR},
       </if>
+      <if test="record.userPricture != null" >
+        user_pricture = #{record.userPricture,jdbcType=VARCHAR},
+      </if>
       <if test="record.userBirthday != null" >
         user_birthday = #{record.userBirthday,jdbcType=TIMESTAMP},
       </if>
       <if test="record.userGender != null" >
-        user_gender = #{record.userGender,jdbcType=CHAR},
+        user_gender = #{record.userGender,jdbcType=VARCHAR},
       </if>
       <if test="record.userPhone != null" >
         user_phone = #{record.userPhone,jdbcType=VARCHAR},
       </if>
+      <if test="record.userCityId != null" >
+        user_city_id = #{record.userCityId,jdbcType=BIGINT},
+      </if>
       <if test="record.userAddress != null" >
         user_address = #{record.userAddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.userDelete != null" >
-        user_delete = #{record.userDelete,jdbcType=INTEGER},
+      <if test="record.userIsDelete != null" >
+        user_is_delete = #{record.userIsDelete,jdbcType=VARCHAR},
       </if>
-      <if test="record.userVip != null" >
-        user_vip = #{record.userVip,jdbcType=INTEGER},
+      <if test="record.userIsVip != null" >
+        user_is_vip = #{record.userIsVip,jdbcType=VARCHAR},
       </if>
       <if test="record.userMail != null" >
         user_mail = #{record.userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCreateTime != null" >
+        user_create_time = #{record.userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userFrom != null" >
+        user_from = #{record.userFrom,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-
-  <!--根据任意字段更新用户信息-->
   <update id="updateByExample" parameterType="map" >
     update user
-    set user_id = #{record.userId,jdbcType=VARCHAR},
+    set user_id = #{record.userId,jdbcType=BIGINT},
       user_name = #{record.userName,jdbcType=VARCHAR},
       user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_pricture = #{record.userPricture,jdbcType=VARCHAR},
       user_birthday = #{record.userBirthday,jdbcType=TIMESTAMP},
-      user_gender = #{record.userGender,jdbcType=CHAR},
+      user_gender = #{record.userGender,jdbcType=VARCHAR},
       user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_city_id = #{record.userCityId,jdbcType=BIGINT},
       user_address = #{record.userAddress,jdbcType=VARCHAR},
-      user_delete = #{record.userDelete,jdbcType=INTEGER},
-      user_vip = #{record.userVip,jdbcType=INTEGER},
-      user_mail = #{record.userMail,jdbcType=VARCHAR}
+      user_is_delete = #{record.userIsDelete,jdbcType=VARCHAR},
+      user_is_vip = #{record.userIsVip,jdbcType=VARCHAR},
+      user_mail = #{record.userMail,jdbcType=VARCHAR},
+      user_create_time = #{record.userCreateTime,jdbcType=TIMESTAMP},
+      user_from = #{record.userFrom,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-
-  <!--根据表主键更新用户需要更新的信息-->
   <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.User" >
     update user
     <set >
@@ -274,43 +298,57 @@
       <if test="userPassword != null" >
         user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
+      <if test="userPricture != null" >
+        user_pricture = #{userPricture,jdbcType=VARCHAR},
+      </if>
       <if test="userBirthday != null" >
         user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
       </if>
       <if test="userGender != null" >
-        user_gender = #{userGender,jdbcType=CHAR},
+        user_gender = #{userGender,jdbcType=VARCHAR},
       </if>
       <if test="userPhone != null" >
         user_phone = #{userPhone,jdbcType=VARCHAR},
       </if>
+      <if test="userCityId != null" >
+        user_city_id = #{userCityId,jdbcType=BIGINT},
+      </if>
       <if test="userAddress != null" >
         user_address = #{userAddress,jdbcType=VARCHAR},
       </if>
-      <if test="userDelete != null" >
-        user_delete = #{userDelete,jdbcType=INTEGER},
+      <if test="userIsDelete != null" >
+        user_is_delete = #{userIsDelete,jdbcType=VARCHAR},
       </if>
-      <if test="userVip != null" >
-        user_vip = #{userVip,jdbcType=INTEGER},
+      <if test="userIsVip != null" >
+        user_is_vip = #{userIsVip,jdbcType=VARCHAR},
       </if>
       <if test="userMail != null" >
         user_mail = #{userMail,jdbcType=VARCHAR},
       </if>
+      <if test="userCreateTime != null" >
+        user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userFrom != null" >
+        user_from = #{userFrom,jdbcType=VARCHAR},
+      </if>
     </set>
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
   </update>
-
-  <!--根据表主键更新用户记录-->
   <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.User" >
     update user
     set user_name = #{userName,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
+      user_pricture = #{userPricture,jdbcType=VARCHAR},
       user_birthday = #{userBirthday,jdbcType=TIMESTAMP},
-      user_gender = #{userGender,jdbcType=CHAR},
+      user_gender = #{userGender,jdbcType=VARCHAR},
       user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_city_id = #{userCityId,jdbcType=BIGINT},
       user_address = #{userAddress,jdbcType=VARCHAR},
-      user_delete = #{userDelete,jdbcType=INTEGER},
-      user_vip = #{userVip,jdbcType=INTEGER},
-      user_mail = #{userMail,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=VARCHAR}
+      user_is_delete = #{userIsDelete,jdbcType=VARCHAR},
+      user_is_vip = #{userIsVip,jdbcType=VARCHAR},
+      user_mail = #{userMail,jdbcType=VARCHAR},
+      user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+      user_from = #{userFrom,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
   </update>
 </mapper>

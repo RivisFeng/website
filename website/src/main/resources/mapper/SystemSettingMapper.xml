@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.SystemSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.SystemSetting" >
+    <id column="setting_id" property="settingId" jdbcType="BIGINT" />
+    <result column="setting_titile" property="settingTitile" jdbcType="VARCHAR" />
+    <result column="setting_name" property="settingName" jdbcType="VARCHAR" />
+    <result column="setting_value" property="settingValue" jdbcType="VARCHAR" />
+    <result column="setting_values" property="settingValues" jdbcType="VARCHAR" />
+    <result column="setting_data" property="settingData" jdbcType="VARCHAR" />
+    <result column="setting_from" property="settingFrom" jdbcType="VARCHAR" />
+    <result column="setting_sort" property="settingSort" jdbcType="VARCHAR" />
+    <result column="setting_description" property="settingDescription" jdbcType="VARCHAR" />
+    <result column="setting_create_time" property="settingCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    setting_id, setting_titile, setting_name, setting_value, setting_values, setting_data, 
+    setting_from, setting_sort, setting_description, setting_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.SystemSettingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from system_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_setting
+    where setting_id = #{settingId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_setting
+    where setting_id = #{settingId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.SystemSettingExample" >
+    delete from system_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.SystemSetting" >
+    insert into system_setting (setting_id, setting_titile, setting_name, 
+      setting_value, setting_values, setting_data, 
+      setting_from, setting_sort, setting_description, 
+      setting_create_time)
+    values (#{settingId,jdbcType=BIGINT}, #{settingTitile,jdbcType=VARCHAR}, #{settingName,jdbcType=VARCHAR}, 
+      #{settingValue,jdbcType=VARCHAR}, #{settingValues,jdbcType=VARCHAR}, #{settingData,jdbcType=VARCHAR}, 
+      #{settingFrom,jdbcType=VARCHAR}, #{settingSort,jdbcType=VARCHAR}, #{settingDescription,jdbcType=VARCHAR}, 
+      #{settingCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.SystemSetting" >
+    insert into system_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="settingId != null" >
+        setting_id,
+      </if>
+      <if test="settingTitile != null" >
+        setting_titile,
+      </if>
+      <if test="settingName != null" >
+        setting_name,
+      </if>
+      <if test="settingValue != null" >
+        setting_value,
+      </if>
+      <if test="settingValues != null" >
+        setting_values,
+      </if>
+      <if test="settingData != null" >
+        setting_data,
+      </if>
+      <if test="settingFrom != null" >
+        setting_from,
+      </if>
+      <if test="settingSort != null" >
+        setting_sort,
+      </if>
+      <if test="settingDescription != null" >
+        setting_description,
+      </if>
+      <if test="settingCreateTime != null" >
+        setting_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="settingId != null" >
+        #{settingId,jdbcType=BIGINT},
+      </if>
+      <if test="settingTitile != null" >
+        #{settingTitile,jdbcType=VARCHAR},
+      </if>
+      <if test="settingName != null" >
+        #{settingName,jdbcType=VARCHAR},
+      </if>
+      <if test="settingValue != null" >
+        #{settingValue,jdbcType=VARCHAR},
+      </if>
+      <if test="settingValues != null" >
+        #{settingValues,jdbcType=VARCHAR},
+      </if>
+      <if test="settingData != null" >
+        #{settingData,jdbcType=VARCHAR},
+      </if>
+      <if test="settingFrom != null" >
+        #{settingFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="settingSort != null" >
+        #{settingSort,jdbcType=VARCHAR},
+      </if>
+      <if test="settingDescription != null" >
+        #{settingDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="settingCreateTime != null" >
+        #{settingCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.SystemSettingExample" resultType="java.lang.Integer" >
+    select count(*) from system_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system_setting
+    <set >
+      <if test="record.settingId != null" >
+        setting_id = #{record.settingId,jdbcType=BIGINT},
+      </if>
+      <if test="record.settingTitile != null" >
+        setting_titile = #{record.settingTitile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingName != null" >
+        setting_name = #{record.settingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingValue != null" >
+        setting_value = #{record.settingValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingValues != null" >
+        setting_values = #{record.settingValues,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingData != null" >
+        setting_data = #{record.settingData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingFrom != null" >
+        setting_from = #{record.settingFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingSort != null" >
+        setting_sort = #{record.settingSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingDescription != null" >
+        setting_description = #{record.settingDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settingCreateTime != null" >
+        setting_create_time = #{record.settingCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system_setting
+    set setting_id = #{record.settingId,jdbcType=BIGINT},
+      setting_titile = #{record.settingTitile,jdbcType=VARCHAR},
+      setting_name = #{record.settingName,jdbcType=VARCHAR},
+      setting_value = #{record.settingValue,jdbcType=VARCHAR},
+      setting_values = #{record.settingValues,jdbcType=VARCHAR},
+      setting_data = #{record.settingData,jdbcType=VARCHAR},
+      setting_from = #{record.settingFrom,jdbcType=VARCHAR},
+      setting_sort = #{record.settingSort,jdbcType=VARCHAR},
+      setting_description = #{record.settingDescription,jdbcType=VARCHAR},
+      setting_create_time = #{record.settingCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.SystemSetting" >
+    update system_setting
+    <set >
+      <if test="settingTitile != null" >
+        setting_titile = #{settingTitile,jdbcType=VARCHAR},
+      </if>
+      <if test="settingName != null" >
+        setting_name = #{settingName,jdbcType=VARCHAR},
+      </if>
+      <if test="settingValue != null" >
+        setting_value = #{settingValue,jdbcType=VARCHAR},
+      </if>
+      <if test="settingValues != null" >
+        setting_values = #{settingValues,jdbcType=VARCHAR},
+      </if>
+      <if test="settingData != null" >
+        setting_data = #{settingData,jdbcType=VARCHAR},
+      </if>
+      <if test="settingFrom != null" >
+        setting_from = #{settingFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="settingSort != null" >
+        setting_sort = #{settingSort,jdbcType=VARCHAR},
+      </if>
+      <if test="settingDescription != null" >
+        setting_description = #{settingDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="settingCreateTime != null" >
+        setting_create_time = #{settingCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where setting_id = #{settingId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.SystemSetting" >
+    update system_setting
+    set setting_titile = #{settingTitile,jdbcType=VARCHAR},
+      setting_name = #{settingName,jdbcType=VARCHAR},
+      setting_value = #{settingValue,jdbcType=VARCHAR},
+      setting_values = #{settingValues,jdbcType=VARCHAR},
+      setting_data = #{settingData,jdbcType=VARCHAR},
+      setting_from = #{settingFrom,jdbcType=VARCHAR},
+      setting_sort = #{settingSort,jdbcType=VARCHAR},
+      setting_description = #{settingDescription,jdbcType=VARCHAR},
+      setting_create_time = #{settingCreateTime,jdbcType=TIMESTAMP}
+    where setting_id = #{settingId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.SubjectOrderAlipayMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.SubjectOrderAlipay" >
+    <id column="order_alipay_id" property="orderAlipayId" jdbcType="BIGINT" />
+    <result column="subject_order_id" property="subjectOrderId" jdbcType="BIGINT" />
+    <result column="order_alipay_user_id" property="orderAlipayUserId" jdbcType="BIGINT" />
+    <result column="order_alipay_state" property="orderAlipayState" jdbcType="VARCHAR" />
+    <result column="order_alipay_create_time" property="orderAlipayCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_alipay_id, subject_order_id, order_alipay_user_id, order_alipay_state, order_alipay_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderAlipayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from subject_order_alipay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from subject_order_alipay
+    where order_alipay_id = #{orderAlipayId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from subject_order_alipay
+    where order_alipay_id = #{orderAlipayId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderAlipayExample" >
+    delete from subject_order_alipay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderAlipay" >
+    insert into subject_order_alipay (order_alipay_id, subject_order_id, order_alipay_user_id, 
+      order_alipay_state, order_alipay_create_time
+      )
+    values (#{orderAlipayId,jdbcType=BIGINT}, #{subjectOrderId,jdbcType=BIGINT}, #{orderAlipayUserId,jdbcType=BIGINT}, 
+      #{orderAlipayState,jdbcType=VARCHAR}, #{orderAlipayCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderAlipay" >
+    insert into subject_order_alipay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderAlipayId != null" >
+        order_alipay_id,
+      </if>
+      <if test="subjectOrderId != null" >
+        subject_order_id,
+      </if>
+      <if test="orderAlipayUserId != null" >
+        order_alipay_user_id,
+      </if>
+      <if test="orderAlipayState != null" >
+        order_alipay_state,
+      </if>
+      <if test="orderAlipayCreateTime != null" >
+        order_alipay_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderAlipayId != null" >
+        #{orderAlipayId,jdbcType=BIGINT},
+      </if>
+      <if test="subjectOrderId != null" >
+        #{subjectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderAlipayUserId != null" >
+        #{orderAlipayUserId,jdbcType=BIGINT},
+      </if>
+      <if test="orderAlipayState != null" >
+        #{orderAlipayState,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAlipayCreateTime != null" >
+        #{orderAlipayCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderAlipayExample" resultType="java.lang.Integer" >
+    select count(*) from subject_order_alipay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update subject_order_alipay
+    <set >
+      <if test="record.orderAlipayId != null" >
+        order_alipay_id = #{record.orderAlipayId,jdbcType=BIGINT},
+      </if>
+      <if test="record.subjectOrderId != null" >
+        subject_order_id = #{record.subjectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderAlipayUserId != null" >
+        order_alipay_user_id = #{record.orderAlipayUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderAlipayState != null" >
+        order_alipay_state = #{record.orderAlipayState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderAlipayCreateTime != null" >
+        order_alipay_create_time = #{record.orderAlipayCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update subject_order_alipay
+    set order_alipay_id = #{record.orderAlipayId,jdbcType=BIGINT},
+      subject_order_id = #{record.subjectOrderId,jdbcType=BIGINT},
+      order_alipay_user_id = #{record.orderAlipayUserId,jdbcType=BIGINT},
+      order_alipay_state = #{record.orderAlipayState,jdbcType=VARCHAR},
+      order_alipay_create_time = #{record.orderAlipayCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderAlipay" >
+    update subject_order_alipay
+    <set >
+      <if test="subjectOrderId != null" >
+        subject_order_id = #{subjectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderAlipayUserId != null" >
+        order_alipay_user_id = #{orderAlipayUserId,jdbcType=BIGINT},
+      </if>
+      <if test="orderAlipayState != null" >
+        order_alipay_state = #{orderAlipayState,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAlipayCreateTime != null" >
+        order_alipay_create_time = #{orderAlipayCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_alipay_id = #{orderAlipayId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.SubjectOrderAlipay" >
+    update subject_order_alipay
+    set subject_order_id = #{subjectOrderId,jdbcType=BIGINT},
+      order_alipay_user_id = #{orderAlipayUserId,jdbcType=BIGINT},
+      order_alipay_state = #{orderAlipayState,jdbcType=VARCHAR},
+      order_alipay_create_time = #{orderAlipayCreateTime,jdbcType=TIMESTAMP}
+    where order_alipay_id = #{orderAlipayId,jdbcType=BIGINT}
+  </update>
+</mapper>

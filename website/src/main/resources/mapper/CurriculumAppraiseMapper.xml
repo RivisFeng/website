@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.CurriculumAppraiseMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.CurriculumAppraise" >
+    <id column="appraise_id" property="appraiseId" jdbcType="BIGINT" />
+    <result column="appraise_user_id" property="appraiseUserId" jdbcType="BIGINT" />
+    <result column="appraise_curriculum_id" property="appraiseCurriculumId" jdbcType="BIGINT" />
+    <result column="appraise_content" property="appraiseContent" jdbcType="VARCHAR" />
+    <result column="appraise_is_show" property="appraiseIsShow" jdbcType="VARCHAR" />
+    <result column="appraise_agree_number" property="appraiseAgreeNumber" jdbcType="VARCHAR" />
+    <result column="appraise_no_agree_number" property="appraiseNoAgreeNumber" jdbcType="VARCHAR" />
+    <result column="appraise_create_time" property="appraiseCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    appraise_id, appraise_user_id, appraise_curriculum_id, appraise_content, appraise_is_show, 
+    appraise_agree_number, appraise_no_agree_number, appraise_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from curriculum_appraise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from curriculum_appraise
+    where appraise_id = #{appraiseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from curriculum_appraise
+    where appraise_id = #{appraiseId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseExample" >
+    delete from curriculum_appraise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraise" >
+    insert into curriculum_appraise (appraise_id, appraise_user_id, appraise_curriculum_id, 
+      appraise_content, appraise_is_show, appraise_agree_number, 
+      appraise_no_agree_number, appraise_create_time
+      )
+    values (#{appraiseId,jdbcType=BIGINT}, #{appraiseUserId,jdbcType=BIGINT}, #{appraiseCurriculumId,jdbcType=BIGINT}, 
+      #{appraiseContent,jdbcType=VARCHAR}, #{appraiseIsShow,jdbcType=VARCHAR}, #{appraiseAgreeNumber,jdbcType=VARCHAR}, 
+      #{appraiseNoAgreeNumber,jdbcType=VARCHAR}, #{appraiseCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraise" >
+    insert into curriculum_appraise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appraiseId != null" >
+        appraise_id,
+      </if>
+      <if test="appraiseUserId != null" >
+        appraise_user_id,
+      </if>
+      <if test="appraiseCurriculumId != null" >
+        appraise_curriculum_id,
+      </if>
+      <if test="appraiseContent != null" >
+        appraise_content,
+      </if>
+      <if test="appraiseIsShow != null" >
+        appraise_is_show,
+      </if>
+      <if test="appraiseAgreeNumber != null" >
+        appraise_agree_number,
+      </if>
+      <if test="appraiseNoAgreeNumber != null" >
+        appraise_no_agree_number,
+      </if>
+      <if test="appraiseCreateTime != null" >
+        appraise_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appraiseId != null" >
+        #{appraiseId,jdbcType=BIGINT},
+      </if>
+      <if test="appraiseUserId != null" >
+        #{appraiseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="appraiseCurriculumId != null" >
+        #{appraiseCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="appraiseContent != null" >
+        #{appraiseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseIsShow != null" >
+        #{appraiseIsShow,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseAgreeNumber != null" >
+        #{appraiseAgreeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseNoAgreeNumber != null" >
+        #{appraiseNoAgreeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseCreateTime != null" >
+        #{appraiseCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraiseExample" resultType="java.lang.Integer" >
+    select count(*) from curriculum_appraise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update curriculum_appraise
+    <set >
+      <if test="record.appraiseId != null" >
+        appraise_id = #{record.appraiseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.appraiseUserId != null" >
+        appraise_user_id = #{record.appraiseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.appraiseCurriculumId != null" >
+        appraise_curriculum_id = #{record.appraiseCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="record.appraiseContent != null" >
+        appraise_content = #{record.appraiseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appraiseIsShow != null" >
+        appraise_is_show = #{record.appraiseIsShow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appraiseAgreeNumber != null" >
+        appraise_agree_number = #{record.appraiseAgreeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appraiseNoAgreeNumber != null" >
+        appraise_no_agree_number = #{record.appraiseNoAgreeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appraiseCreateTime != null" >
+        appraise_create_time = #{record.appraiseCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update curriculum_appraise
+    set appraise_id = #{record.appraiseId,jdbcType=BIGINT},
+      appraise_user_id = #{record.appraiseUserId,jdbcType=BIGINT},
+      appraise_curriculum_id = #{record.appraiseCurriculumId,jdbcType=BIGINT},
+      appraise_content = #{record.appraiseContent,jdbcType=VARCHAR},
+      appraise_is_show = #{record.appraiseIsShow,jdbcType=VARCHAR},
+      appraise_agree_number = #{record.appraiseAgreeNumber,jdbcType=VARCHAR},
+      appraise_no_agree_number = #{record.appraiseNoAgreeNumber,jdbcType=VARCHAR},
+      appraise_create_time = #{record.appraiseCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraise" >
+    update curriculum_appraise
+    <set >
+      <if test="appraiseUserId != null" >
+        appraise_user_id = #{appraiseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="appraiseCurriculumId != null" >
+        appraise_curriculum_id = #{appraiseCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="appraiseContent != null" >
+        appraise_content = #{appraiseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseIsShow != null" >
+        appraise_is_show = #{appraiseIsShow,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseAgreeNumber != null" >
+        appraise_agree_number = #{appraiseAgreeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseNoAgreeNumber != null" >
+        appraise_no_agree_number = #{appraiseNoAgreeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseCreateTime != null" >
+        appraise_create_time = #{appraiseCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where appraise_id = #{appraiseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.CurriculumAppraise" >
+    update curriculum_appraise
+    set appraise_user_id = #{appraiseUserId,jdbcType=BIGINT},
+      appraise_curriculum_id = #{appraiseCurriculumId,jdbcType=BIGINT},
+      appraise_content = #{appraiseContent,jdbcType=VARCHAR},
+      appraise_is_show = #{appraiseIsShow,jdbcType=VARCHAR},
+      appraise_agree_number = #{appraiseAgreeNumber,jdbcType=VARCHAR},
+      appraise_no_agree_number = #{appraiseNoAgreeNumber,jdbcType=VARCHAR},
+      appraise_create_time = #{appraiseCreateTime,jdbcType=TIMESTAMP}
+    where appraise_id = #{appraiseId,jdbcType=BIGINT}
+  </update>
+</mapper>

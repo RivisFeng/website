@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.UserStateLogMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.UserStateLog" >
+    <id column="log_id" property="logId" jdbcType="BIGINT" />
+    <result column="log_type" property="logType" jdbcType="VARCHAR" />
+    <result column="log_create_time" property="logCreateTime" jdbcType="TIMESTAMP" />
+    <result column="log_ip" property="logIp" jdbcType="VARCHAR" />
+    <result column="log_area" property="logArea" jdbcType="VARCHAR" />
+    <result column="log_equipment" property="logEquipment" jdbcType="VARCHAR" />
+    <result column="log_soft" property="logSoft" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    log_id, log_type, log_create_time, log_ip, log_area, log_equipment, log_soft
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.UserStateLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_state_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_state_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_state_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.UserStateLogExample" >
+    delete from user_state_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.UserStateLog" >
+    insert into user_state_log (log_id, log_type, log_create_time, 
+      log_ip, log_area, log_equipment, 
+      log_soft)
+    values (#{logId,jdbcType=BIGINT}, #{logType,jdbcType=VARCHAR}, #{logCreateTime,jdbcType=TIMESTAMP}, 
+      #{logIp,jdbcType=VARCHAR}, #{logArea,jdbcType=VARCHAR}, #{logEquipment,jdbcType=VARCHAR}, 
+      #{logSoft,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.UserStateLog" >
+    insert into user_state_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="logType != null" >
+        log_type,
+      </if>
+      <if test="logCreateTime != null" >
+        log_create_time,
+      </if>
+      <if test="logIp != null" >
+        log_ip,
+      </if>
+      <if test="logArea != null" >
+        log_area,
+      </if>
+      <if test="logEquipment != null" >
+        log_equipment,
+      </if>
+      <if test="logSoft != null" >
+        log_soft,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=BIGINT},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logCreateTime != null" >
+        #{logCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logIp != null" >
+        #{logIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logArea != null" >
+        #{logArea,jdbcType=VARCHAR},
+      </if>
+      <if test="logEquipment != null" >
+        #{logEquipment,jdbcType=VARCHAR},
+      </if>
+      <if test="logSoft != null" >
+        #{logSoft,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.UserStateLogExample" resultType="java.lang.Integer" >
+    select count(*) from user_state_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_state_log
+    <set >
+      <if test="record.logId != null" >
+        log_id = #{record.logId,jdbcType=BIGINT},
+      </if>
+      <if test="record.logType != null" >
+        log_type = #{record.logType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logCreateTime != null" >
+        log_create_time = #{record.logCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logIp != null" >
+        log_ip = #{record.logIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logArea != null" >
+        log_area = #{record.logArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logEquipment != null" >
+        log_equipment = #{record.logEquipment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSoft != null" >
+        log_soft = #{record.logSoft,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_state_log
+    set log_id = #{record.logId,jdbcType=BIGINT},
+      log_type = #{record.logType,jdbcType=VARCHAR},
+      log_create_time = #{record.logCreateTime,jdbcType=TIMESTAMP},
+      log_ip = #{record.logIp,jdbcType=VARCHAR},
+      log_area = #{record.logArea,jdbcType=VARCHAR},
+      log_equipment = #{record.logEquipment,jdbcType=VARCHAR},
+      log_soft = #{record.logSoft,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.UserStateLog" >
+    update user_state_log
+    <set >
+      <if test="logType != null" >
+        log_type = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logCreateTime != null" >
+        log_create_time = #{logCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logIp != null" >
+        log_ip = #{logIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logArea != null" >
+        log_area = #{logArea,jdbcType=VARCHAR},
+      </if>
+      <if test="logEquipment != null" >
+        log_equipment = #{logEquipment,jdbcType=VARCHAR},
+      </if>
+      <if test="logSoft != null" >
+        log_soft = #{logSoft,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.UserStateLog" >
+    update user_state_log
+    set log_type = #{logType,jdbcType=VARCHAR},
+      log_create_time = #{logCreateTime,jdbcType=TIMESTAMP},
+      log_ip = #{logIp,jdbcType=VARCHAR},
+      log_area = #{logArea,jdbcType=VARCHAR},
+      log_equipment = #{logEquipment,jdbcType=VARCHAR},
+      log_soft = #{logSoft,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+</mapper>

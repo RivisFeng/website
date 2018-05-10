@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.CurriculumFeatureMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.CurriculumFeature" >
+    <id column="feature_id" property="featureId" jdbcType="BIGINT" />
+    <result column="feature_name" property="featureName" jdbcType="VARCHAR" />
+    <result column="feature_state" property="featureState" jdbcType="VARCHAR" />
+    <result column="feature_create_time" property="featureCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    feature_id, feature_name, feature_state, feature_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.CurriculumFeatureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from curriculum_feature
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from curriculum_feature
+    where feature_id = #{featureId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from curriculum_feature
+    where feature_id = #{featureId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumFeatureExample" >
+    delete from curriculum_feature
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.CurriculumFeature" >
+    insert into curriculum_feature (feature_id, feature_name, feature_state, 
+      feature_create_time)
+    values (#{featureId,jdbcType=BIGINT}, #{featureName,jdbcType=VARCHAR}, #{featureState,jdbcType=VARCHAR}, 
+      #{featureCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumFeature" >
+    insert into curriculum_feature
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="featureId != null" >
+        feature_id,
+      </if>
+      <if test="featureName != null" >
+        feature_name,
+      </if>
+      <if test="featureState != null" >
+        feature_state,
+      </if>
+      <if test="featureCreateTime != null" >
+        feature_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="featureId != null" >
+        #{featureId,jdbcType=BIGINT},
+      </if>
+      <if test="featureName != null" >
+        #{featureName,jdbcType=VARCHAR},
+      </if>
+      <if test="featureState != null" >
+        #{featureState,jdbcType=VARCHAR},
+      </if>
+      <if test="featureCreateTime != null" >
+        #{featureCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumFeatureExample" resultType="java.lang.Integer" >
+    select count(*) from curriculum_feature
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update curriculum_feature
+    <set >
+      <if test="record.featureId != null" >
+        feature_id = #{record.featureId,jdbcType=BIGINT},
+      </if>
+      <if test="record.featureName != null" >
+        feature_name = #{record.featureName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.featureState != null" >
+        feature_state = #{record.featureState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.featureCreateTime != null" >
+        feature_create_time = #{record.featureCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update curriculum_feature
+    set feature_id = #{record.featureId,jdbcType=BIGINT},
+      feature_name = #{record.featureName,jdbcType=VARCHAR},
+      feature_state = #{record.featureState,jdbcType=VARCHAR},
+      feature_create_time = #{record.featureCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumFeature" >
+    update curriculum_feature
+    <set >
+      <if test="featureName != null" >
+        feature_name = #{featureName,jdbcType=VARCHAR},
+      </if>
+      <if test="featureState != null" >
+        feature_state = #{featureState,jdbcType=VARCHAR},
+      </if>
+      <if test="featureCreateTime != null" >
+        feature_create_time = #{featureCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where feature_id = #{featureId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.CurriculumFeature" >
+    update curriculum_feature
+    set feature_name = #{featureName,jdbcType=VARCHAR},
+      feature_state = #{featureState,jdbcType=VARCHAR},
+      feature_create_time = #{featureCreateTime,jdbcType=TIMESTAMP}
+    where feature_id = #{featureId,jdbcType=BIGINT}
+  </update>
+</mapper>

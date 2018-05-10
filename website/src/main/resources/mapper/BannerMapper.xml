@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.BannerMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.Banner" >
+    <id column="banner_id" property="bannerId" jdbcType="BIGINT" />
+    <result column="banner_name" property="bannerName" jdbcType="VARCHAR" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="banner_image_url" property="bannerImageUrl" jdbcType="VARCHAR" />
+    <result column="banner_sort" property="bannerSort" jdbcType="VARCHAR" />
+    <result column="banner_type" property="bannerType" jdbcType="VARCHAR" />
+    <result column="banner_state" property="bannerState" jdbcType="VARCHAR" />
+    <result column="banner_desc" property="bannerDesc" jdbcType="VARCHAR" />
+    <result column="banner_cteate_time" property="bannerCteateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    banner_id, banner_name, banner_url, banner_image_url, banner_sort, banner_type, banner_state, 
+    banner_desc, banner_cteate_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.BannerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from banner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from banner
+    where banner_id = #{bannerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from banner
+    where banner_id = #{bannerId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.BannerExample" >
+    delete from banner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.Banner" >
+    insert into banner (banner_id, banner_name, banner_url, 
+      banner_image_url, banner_sort, banner_type, 
+      banner_state, banner_desc, banner_cteate_time
+      )
+    values (#{bannerId,jdbcType=BIGINT}, #{bannerName,jdbcType=VARCHAR}, #{bannerUrl,jdbcType=VARCHAR}, 
+      #{bannerImageUrl,jdbcType=VARCHAR}, #{bannerSort,jdbcType=VARCHAR}, #{bannerType,jdbcType=VARCHAR}, 
+      #{bannerState,jdbcType=VARCHAR}, #{bannerDesc,jdbcType=VARCHAR}, #{bannerCteateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.Banner" >
+    insert into banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        banner_id,
+      </if>
+      <if test="bannerName != null" >
+        banner_name,
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url,
+      </if>
+      <if test="bannerImageUrl != null" >
+        banner_image_url,
+      </if>
+      <if test="bannerSort != null" >
+        banner_sort,
+      </if>
+      <if test="bannerType != null" >
+        banner_type,
+      </if>
+      <if test="bannerState != null" >
+        banner_state,
+      </if>
+      <if test="bannerDesc != null" >
+        banner_desc,
+      </if>
+      <if test="bannerCteateTime != null" >
+        banner_cteate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        #{bannerId,jdbcType=BIGINT},
+      </if>
+      <if test="bannerName != null" >
+        #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerUrl != null" >
+        #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerImageUrl != null" >
+        #{bannerImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerSort != null" >
+        #{bannerSort,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerType != null" >
+        #{bannerType,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerState != null" >
+        #{bannerState,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerDesc != null" >
+        #{bannerDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerCteateTime != null" >
+        #{bannerCteateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.BannerExample" resultType="java.lang.Integer" >
+    select count(*) from banner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update banner
+    <set >
+      <if test="record.bannerId != null" >
+        banner_id = #{record.bannerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.bannerName != null" >
+        banner_name = #{record.bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerUrl != null" >
+        banner_url = #{record.bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerImageUrl != null" >
+        banner_image_url = #{record.bannerImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerSort != null" >
+        banner_sort = #{record.bannerSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerType != null" >
+        banner_type = #{record.bannerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerState != null" >
+        banner_state = #{record.bannerState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerDesc != null" >
+        banner_desc = #{record.bannerDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerCteateTime != null" >
+        banner_cteate_time = #{record.bannerCteateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update banner
+    set banner_id = #{record.bannerId,jdbcType=BIGINT},
+      banner_name = #{record.bannerName,jdbcType=VARCHAR},
+      banner_url = #{record.bannerUrl,jdbcType=VARCHAR},
+      banner_image_url = #{record.bannerImageUrl,jdbcType=VARCHAR},
+      banner_sort = #{record.bannerSort,jdbcType=VARCHAR},
+      banner_type = #{record.bannerType,jdbcType=VARCHAR},
+      banner_state = #{record.bannerState,jdbcType=VARCHAR},
+      banner_desc = #{record.bannerDesc,jdbcType=VARCHAR},
+      banner_cteate_time = #{record.bannerCteateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.Banner" >
+    update banner
+    <set >
+      <if test="bannerName != null" >
+        banner_name = #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerImageUrl != null" >
+        banner_image_url = #{bannerImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerSort != null" >
+        banner_sort = #{bannerSort,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerType != null" >
+        banner_type = #{bannerType,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerState != null" >
+        banner_state = #{bannerState,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerDesc != null" >
+        banner_desc = #{bannerDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerCteateTime != null" >
+        banner_cteate_time = #{bannerCteateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where banner_id = #{bannerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.Banner" >
+    update banner
+    set banner_name = #{bannerName,jdbcType=VARCHAR},
+      banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      banner_image_url = #{bannerImageUrl,jdbcType=VARCHAR},
+      banner_sort = #{bannerSort,jdbcType=VARCHAR},
+      banner_type = #{bannerType,jdbcType=VARCHAR},
+      banner_state = #{bannerState,jdbcType=VARCHAR},
+      banner_desc = #{bannerDesc,jdbcType=VARCHAR},
+      banner_cteate_time = #{bannerCteateTime,jdbcType=TIMESTAMP}
+    where banner_id = #{bannerId,jdbcType=BIGINT}
+  </update>
+</mapper>

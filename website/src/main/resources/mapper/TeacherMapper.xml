@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.Teacher" >
+    <id column="teacher_id" property="teacherId" jdbcType="BIGINT" />
+    <result column="teacher_user_id" property="teacherUserId" jdbcType="BIGINT" />
+    <result column="teacher_school" property="teacherSchool" jdbcType="VARCHAR" />
+    <result column="teacher_compensation" property="teacherCompensation" jdbcType="VARCHAR" />
+    <result column="teacher_dimission_time" property="teacherDimissionTime" jdbcType="TIMESTAMP" />
+    <result column="teacher_state" property="teacherState" jdbcType="VARCHAR" />
+    <result column="teacher_motto" property="teacherMotto" jdbcType="VARCHAR" />
+    <result column="teacher_photo" property="teacherPhoto" jdbcType="VARCHAR" />
+    <result column="teacher_create_time" property="teacherCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    teacher_id, teacher_user_id, teacher_school, teacher_compensation, teacher_dimission_time, 
+    teacher_state, teacher_motto, teacher_photo, teacher_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from teacher
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.TeacherExample" >
+    delete from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.Teacher" >
+    insert into teacher (teacher_id, teacher_user_id, teacher_school, 
+      teacher_compensation, teacher_dimission_time, 
+      teacher_state, teacher_motto, teacher_photo, 
+      teacher_create_time)
+    values (#{teacherId,jdbcType=BIGINT}, #{teacherUserId,jdbcType=BIGINT}, #{teacherSchool,jdbcType=VARCHAR}, 
+      #{teacherCompensation,jdbcType=VARCHAR}, #{teacherDimissionTime,jdbcType=TIMESTAMP}, 
+      #{teacherState,jdbcType=VARCHAR}, #{teacherMotto,jdbcType=VARCHAR}, #{teacherPhoto,jdbcType=VARCHAR}, 
+      #{teacherCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherUserId != null" >
+        teacher_user_id,
+      </if>
+      <if test="teacherSchool != null" >
+        teacher_school,
+      </if>
+      <if test="teacherCompensation != null" >
+        teacher_compensation,
+      </if>
+      <if test="teacherDimissionTime != null" >
+        teacher_dimission_time,
+      </if>
+      <if test="teacherState != null" >
+        teacher_state,
+      </if>
+      <if test="teacherMotto != null" >
+        teacher_motto,
+      </if>
+      <if test="teacherPhoto != null" >
+        teacher_photo,
+      </if>
+      <if test="teacherCreateTime != null" >
+        teacher_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=BIGINT},
+      </if>
+      <if test="teacherUserId != null" >
+        #{teacherUserId,jdbcType=BIGINT},
+      </if>
+      <if test="teacherSchool != null" >
+        #{teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCompensation != null" >
+        #{teacherCompensation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherDimissionTime != null" >
+        #{teacherDimissionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherState != null" >
+        #{teacherState,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherMotto != null" >
+        #{teacherMotto,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhoto != null" >
+        #{teacherPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCreateTime != null" >
+        #{teacherCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher
+    <set >
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=BIGINT},
+      </if>
+      <if test="record.teacherUserId != null" >
+        teacher_user_id = #{record.teacherUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.teacherSchool != null" >
+        teacher_school = #{record.teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherCompensation != null" >
+        teacher_compensation = #{record.teacherCompensation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherDimissionTime != null" >
+        teacher_dimission_time = #{record.teacherDimissionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.teacherState != null" >
+        teacher_state = #{record.teacherState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherMotto != null" >
+        teacher_motto = #{record.teacherMotto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherPhoto != null" >
+        teacher_photo = #{record.teacherPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherCreateTime != null" >
+        teacher_create_time = #{record.teacherCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher
+    set teacher_id = #{record.teacherId,jdbcType=BIGINT},
+      teacher_user_id = #{record.teacherUserId,jdbcType=BIGINT},
+      teacher_school = #{record.teacherSchool,jdbcType=VARCHAR},
+      teacher_compensation = #{record.teacherCompensation,jdbcType=VARCHAR},
+      teacher_dimission_time = #{record.teacherDimissionTime,jdbcType=TIMESTAMP},
+      teacher_state = #{record.teacherState,jdbcType=VARCHAR},
+      teacher_motto = #{record.teacherMotto,jdbcType=VARCHAR},
+      teacher_photo = #{record.teacherPhoto,jdbcType=VARCHAR},
+      teacher_create_time = #{record.teacherCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.Teacher" >
+    update teacher
+    <set >
+      <if test="teacherUserId != null" >
+        teacher_user_id = #{teacherUserId,jdbcType=BIGINT},
+      </if>
+      <if test="teacherSchool != null" >
+        teacher_school = #{teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCompensation != null" >
+        teacher_compensation = #{teacherCompensation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherDimissionTime != null" >
+        teacher_dimission_time = #{teacherDimissionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherState != null" >
+        teacher_state = #{teacherState,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherMotto != null" >
+        teacher_motto = #{teacherMotto,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhoto != null" >
+        teacher_photo = #{teacherPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCreateTime != null" >
+        teacher_create_time = #{teacherCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.Teacher" >
+    update teacher
+    set teacher_user_id = #{teacherUserId,jdbcType=BIGINT},
+      teacher_school = #{teacherSchool,jdbcType=VARCHAR},
+      teacher_compensation = #{teacherCompensation,jdbcType=VARCHAR},
+      teacher_dimission_time = #{teacherDimissionTime,jdbcType=TIMESTAMP},
+      teacher_state = #{teacherState,jdbcType=VARCHAR},
+      teacher_motto = #{teacherMotto,jdbcType=VARCHAR},
+      teacher_photo = #{teacherPhoto,jdbcType=VARCHAR},
+      teacher_create_time = #{teacherCreateTime,jdbcType=TIMESTAMP}
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+  </update>
+</mapper>

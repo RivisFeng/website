@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.CurriculumDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.CurriculumDetail" >
+    <id column="detail_id" property="detailId" jdbcType="BIGINT" />
+    <result column="detail_curriculum_id" property="detailCurriculumId" jdbcType="BIGINT" />
+    <result column="curriculum_start_time" property="curriculumStartTime" jdbcType="TIMESTAMP" />
+    <result column="curriculum_end_time" property="curriculumEndTime" jdbcType="TIMESTAMP" />
+    <result column="curriculum_execute_date" property="curriculumExecuteDate" jdbcType="TIMESTAMP" />
+    <result column="curriculum_execute_time" property="curriculumExecuteTime" jdbcType="TIMESTAMP" />
+    <result column="curriculum_outline" property="curriculumOutline" jdbcType="VARCHAR" />
+    <result column="curriculum_presentation" property="curriculumPresentation" jdbcType="VARCHAR" />
+    <result column="curriculum_create_time" property="curriculumCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    detail_id, detail_curriculum_id, curriculum_start_time, curriculum_end_time, curriculum_execute_date, 
+    curriculum_execute_time, curriculum_outline, curriculum_presentation, curriculum_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.CurriculumDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from curriculum_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from curriculum_detail
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from curriculum_detail
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumDetailExample" >
+    delete from curriculum_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.CurriculumDetail" >
+    insert into curriculum_detail (detail_id, detail_curriculum_id, curriculum_start_time, 
+      curriculum_end_time, curriculum_execute_date, 
+      curriculum_execute_time, curriculum_outline, 
+      curriculum_presentation, curriculum_create_time
+      )
+    values (#{detailId,jdbcType=BIGINT}, #{detailCurriculumId,jdbcType=BIGINT}, #{curriculumStartTime,jdbcType=TIMESTAMP}, 
+      #{curriculumEndTime,jdbcType=TIMESTAMP}, #{curriculumExecuteDate,jdbcType=TIMESTAMP}, 
+      #{curriculumExecuteTime,jdbcType=TIMESTAMP}, #{curriculumOutline,jdbcType=VARCHAR}, 
+      #{curriculumPresentation,jdbcType=VARCHAR}, #{curriculumCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumDetail" >
+    insert into curriculum_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="detailCurriculumId != null" >
+        detail_curriculum_id,
+      </if>
+      <if test="curriculumStartTime != null" >
+        curriculum_start_time,
+      </if>
+      <if test="curriculumEndTime != null" >
+        curriculum_end_time,
+      </if>
+      <if test="curriculumExecuteDate != null" >
+        curriculum_execute_date,
+      </if>
+      <if test="curriculumExecuteTime != null" >
+        curriculum_execute_time,
+      </if>
+      <if test="curriculumOutline != null" >
+        curriculum_outline,
+      </if>
+      <if test="curriculumPresentation != null" >
+        curriculum_presentation,
+      </if>
+      <if test="curriculumCreateTime != null" >
+        curriculum_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="detailCurriculumId != null" >
+        #{detailCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="curriculumStartTime != null" >
+        #{curriculumStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumEndTime != null" >
+        #{curriculumEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumExecuteDate != null" >
+        #{curriculumExecuteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumExecuteTime != null" >
+        #{curriculumExecuteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumOutline != null" >
+        #{curriculumOutline,jdbcType=VARCHAR},
+      </if>
+      <if test="curriculumPresentation != null" >
+        #{curriculumPresentation,jdbcType=VARCHAR},
+      </if>
+      <if test="curriculumCreateTime != null" >
+        #{curriculumCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.CurriculumDetailExample" resultType="java.lang.Integer" >
+    select count(*) from curriculum_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update curriculum_detail
+    <set >
+      <if test="record.detailId != null" >
+        detail_id = #{record.detailId,jdbcType=BIGINT},
+      </if>
+      <if test="record.detailCurriculumId != null" >
+        detail_curriculum_id = #{record.detailCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="record.curriculumStartTime != null" >
+        curriculum_start_time = #{record.curriculumStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.curriculumEndTime != null" >
+        curriculum_end_time = #{record.curriculumEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.curriculumExecuteDate != null" >
+        curriculum_execute_date = #{record.curriculumExecuteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.curriculumExecuteTime != null" >
+        curriculum_execute_time = #{record.curriculumExecuteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.curriculumOutline != null" >
+        curriculum_outline = #{record.curriculumOutline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.curriculumPresentation != null" >
+        curriculum_presentation = #{record.curriculumPresentation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.curriculumCreateTime != null" >
+        curriculum_create_time = #{record.curriculumCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update curriculum_detail
+    set detail_id = #{record.detailId,jdbcType=BIGINT},
+      detail_curriculum_id = #{record.detailCurriculumId,jdbcType=BIGINT},
+      curriculum_start_time = #{record.curriculumStartTime,jdbcType=TIMESTAMP},
+      curriculum_end_time = #{record.curriculumEndTime,jdbcType=TIMESTAMP},
+      curriculum_execute_date = #{record.curriculumExecuteDate,jdbcType=TIMESTAMP},
+      curriculum_execute_time = #{record.curriculumExecuteTime,jdbcType=TIMESTAMP},
+      curriculum_outline = #{record.curriculumOutline,jdbcType=VARCHAR},
+      curriculum_presentation = #{record.curriculumPresentation,jdbcType=VARCHAR},
+      curriculum_create_time = #{record.curriculumCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.CurriculumDetail" >
+    update curriculum_detail
+    <set >
+      <if test="detailCurriculumId != null" >
+        detail_curriculum_id = #{detailCurriculumId,jdbcType=BIGINT},
+      </if>
+      <if test="curriculumStartTime != null" >
+        curriculum_start_time = #{curriculumStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumEndTime != null" >
+        curriculum_end_time = #{curriculumEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumExecuteDate != null" >
+        curriculum_execute_date = #{curriculumExecuteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumExecuteTime != null" >
+        curriculum_execute_time = #{curriculumExecuteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curriculumOutline != null" >
+        curriculum_outline = #{curriculumOutline,jdbcType=VARCHAR},
+      </if>
+      <if test="curriculumPresentation != null" >
+        curriculum_presentation = #{curriculumPresentation,jdbcType=VARCHAR},
+      </if>
+      <if test="curriculumCreateTime != null" >
+        curriculum_create_time = #{curriculumCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.CurriculumDetail" >
+    update curriculum_detail
+    set detail_curriculum_id = #{detailCurriculumId,jdbcType=BIGINT},
+      curriculum_start_time = #{curriculumStartTime,jdbcType=TIMESTAMP},
+      curriculum_end_time = #{curriculumEndTime,jdbcType=TIMESTAMP},
+      curriculum_execute_date = #{curriculumExecuteDate,jdbcType=TIMESTAMP},
+      curriculum_execute_time = #{curriculumExecuteTime,jdbcType=TIMESTAMP},
+      curriculum_outline = #{curriculumOutline,jdbcType=VARCHAR},
+      curriculum_presentation = #{curriculumPresentation,jdbcType=VARCHAR},
+      curriculum_create_time = #{curriculumCreateTime,jdbcType=TIMESTAMP}
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+</mapper>

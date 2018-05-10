@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rivis.feng.website.dao.AdminUserMapper" >
+  <resultMap id="BaseResultMap" type="com.rivis.feng.website.pojo.po.AdminUser" >
+    <id column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="admin_user_id" property="adminUserId" jdbcType="BIGINT" />
+    <result column="admin_type" property="adminType" jdbcType="VARCHAR" />
+    <result column="admin_state" property="adminState" jdbcType="VARCHAR" />
+    <result column="admin_create_time" property="adminCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    admin_id, admin_user_id, admin_type, admin_state, admin_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rivis.feng.website.pojo.po.AdminUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_user
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from admin_user
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rivis.feng.website.pojo.po.AdminUserExample" >
+    delete from admin_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rivis.feng.website.pojo.po.AdminUser" >
+    insert into admin_user (admin_id, admin_user_id, admin_type, 
+      admin_state, admin_create_time)
+    values (#{adminId,jdbcType=BIGINT}, #{adminUserId,jdbcType=BIGINT}, #{adminType,jdbcType=VARCHAR}, 
+      #{adminState,jdbcType=VARCHAR}, #{adminCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rivis.feng.website.pojo.po.AdminUser" >
+    insert into admin_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminUserId != null" >
+        admin_user_id,
+      </if>
+      <if test="adminType != null" >
+        admin_type,
+      </if>
+      <if test="adminState != null" >
+        admin_state,
+      </if>
+      <if test="adminCreateTime != null" >
+        admin_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="adminUserId != null" >
+        #{adminUserId,jdbcType=BIGINT},
+      </if>
+      <if test="adminType != null" >
+        #{adminType,jdbcType=VARCHAR},
+      </if>
+      <if test="adminState != null" >
+        #{adminState,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCreateTime != null" >
+        #{adminCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rivis.feng.website.pojo.po.AdminUserExample" resultType="java.lang.Integer" >
+    select count(*) from admin_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin_user
+    <set >
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=BIGINT},
+      </if>
+      <if test="record.adminUserId != null" >
+        admin_user_id = #{record.adminUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.adminType != null" >
+        admin_type = #{record.adminType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminState != null" >
+        admin_state = #{record.adminState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminCreateTime != null" >
+        admin_create_time = #{record.adminCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin_user
+    set admin_id = #{record.adminId,jdbcType=BIGINT},
+      admin_user_id = #{record.adminUserId,jdbcType=BIGINT},
+      admin_type = #{record.adminType,jdbcType=VARCHAR},
+      admin_state = #{record.adminState,jdbcType=VARCHAR},
+      admin_create_time = #{record.adminCreateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rivis.feng.website.pojo.po.AdminUser" >
+    update admin_user
+    <set >
+      <if test="adminUserId != null" >
+        admin_user_id = #{adminUserId,jdbcType=BIGINT},
+      </if>
+      <if test="adminType != null" >
+        admin_type = #{adminType,jdbcType=VARCHAR},
+      </if>
+      <if test="adminState != null" >
+        admin_state = #{adminState,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCreateTime != null" >
+        admin_create_time = #{adminCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rivis.feng.website.pojo.po.AdminUser" >
+    update admin_user
+    set admin_user_id = #{adminUserId,jdbcType=BIGINT},
+      admin_type = #{adminType,jdbcType=VARCHAR},
+      admin_state = #{adminState,jdbcType=VARCHAR},
+      admin_create_time = #{adminCreateTime,jdbcType=TIMESTAMP}
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </update>
+</mapper>
