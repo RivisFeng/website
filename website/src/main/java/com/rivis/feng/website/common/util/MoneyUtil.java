@@ -23,7 +23,7 @@ public class MoneyUtil {
     private static final String CN_NEGATIVE = "负";
 
     /** 特殊字符：零元整. */
-    private static final String CN_ZEOR_FULL = "零元" + CN_FULL;
+    private static final String CN_ZERO_FULL = "零元" + CN_FULL;
 
     /** 金额的精度，默认值为2. */
     private static final int MONEY_PRECISION = 2;
@@ -35,14 +35,14 @@ public class MoneyUtil {
      * @param numberOfMoney {BigDecimal} 要转汉字大写的阿拉伯数字
      * @return {String} 转换后的汉字计数数字
      */
-    public static String number2CNMontrayUnit(BigDecimal numberOfMoney) {
-        StringBuffer sb = new StringBuffer();
+    public static String arabicNumeralConvertChineseNumeal(BigDecimal numberOfMoney) {
+        StringBuffer stringBuffer = new StringBuffer();
         // -1, 0, or 1 as the value of this BigDecimal is negative, zero, or
         // positive.
         int signum = numberOfMoney.signum();
         // 零元整的情况
         if (signum == 0) {
-            return CN_ZEOR_FULL;
+            return CN_ZERO_FULL;
         }
         // 这里会进行金额的四舍五入
         long number = numberOfMoney.movePointRight(MONEY_PRECISION).setScale(0, 4).abs().longValue();
@@ -71,26 +71,26 @@ public class MoneyUtil {
             numUnit = (int) (number % 10);
             if (numUnit > 0) {
                 if ((numIndex == 9) && (zeroSize >= 3)) {
-                    sb.insert(0, CN_UPPER_MONETRAY_UNIT[6]);
+                    stringBuffer.insert(0, CN_UPPER_MONETRAY_UNIT[6]);
                 }
                 if ((numIndex == 13) && (zeroSize >= 3)) {
-                    sb.insert(0, CN_UPPER_MONETRAY_UNIT[10]);
+                    stringBuffer.insert(0, CN_UPPER_MONETRAY_UNIT[10]);
                 }
-                sb.insert(0, CN_UPPER_MONETRAY_UNIT[numIndex]);
-                sb.insert(0, CN_UPPER_NUMBER[numUnit]);
+                stringBuffer.insert(0, CN_UPPER_MONETRAY_UNIT[numIndex]);
+                stringBuffer.insert(0, CN_UPPER_NUMBER[numUnit]);
                 getZero = false;
                 zeroSize = 0;
             } else {
                 ++zeroSize;
                 if (!(getZero)) {
-                    sb.insert(0, CN_UPPER_NUMBER[numUnit]);
+                    stringBuffer.insert(0, CN_UPPER_NUMBER[numUnit]);
                 }
                 if (numIndex == 2) {
                     if (number > 0) {
-                        sb.insert(0, CN_UPPER_MONETRAY_UNIT[numIndex]);
+                        stringBuffer.insert(0, CN_UPPER_MONETRAY_UNIT[numIndex]);
                     }
                 } else if (((numIndex - 2) % 4 == 0) && (number % 1000 > 0)) {
-                    sb.insert(0, CN_UPPER_MONETRAY_UNIT[numIndex]);
+                    stringBuffer.insert(0, CN_UPPER_MONETRAY_UNIT[numIndex]);
                 }
                 getZero = true;
             }
@@ -100,13 +100,13 @@ public class MoneyUtil {
         }
         // 如果signum == -1，则说明输入的数字为负数，就在最前面追加特殊字符：负
         if (signum == -1) {
-            sb.insert(0, CN_NEGATIVE);
+            stringBuffer.insert(0, CN_NEGATIVE);
         }
         // 输入的数字小数点后两位为"00"的情况，则要在最后追加特殊字符：整
         if (!(scale > 0)) {
-            sb.append(CN_FULL);
+            stringBuffer.append(CN_FULL);
         }
-        return sb.toString();
+        return stringBuffer.toString();
     }
 
 }
