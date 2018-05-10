@@ -5,7 +5,7 @@ package com.rivis.feng.website.common.util;
  *
  * @author Rivis
  * @date 2018-05-09
- * @despaction SnowFlake的结构如下(每部分用 - 分开):
+ * SnowFlake的结构如下(每部分用 - 分开):
  * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000
  * 1位标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0
  * 41位时间截(毫秒级)，注意，41位时间截不是存储当前时间的时间截，而是存储时间截的差值（当前时间截 - 开始时间截)
@@ -18,34 +18,34 @@ package com.rivis.feng.website.common.util;
 public class SnowflakeIdWorker {
 
     /** 开始时间截 (2015-01-01). */
-    private final long twepoch = 1420041600000L;
+    private final long TWOPOCH = 1420041600000L;
 
     /** 机器id所占的位数. */
-    private final long workerIdBits = 5L;
+    private final long WORKER_ID_BITS = 5L;
 
     /** 数据标识id所占的位数. */
-    private final long dataCenterIdBits = 5L;
+    private final long DATA_CENTER_ID_BITS = 5L;
 
     /** 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数) */
-    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    private final long MAX_WORKER_ID = -1L ^ (-1L << WORKER_ID_BITS);
 
     /** 支持的最大数据标识id，结果是31. */
-    private final long maxDataCenterId = -1L ^ (-1L << dataCenterIdBits);
+    private final long MAX_DATA_CENTER_ID = -1L ^ (-1L << DATA_CENTER_ID_BITS);
 
     /** 序列在id中占的位数. */
-    private final long sequenceBits = 12L;
+    private final long SEQUENCE_BITS = 12L;
 
     /** 机器ID向左移12位. */
-    private final long workerIdShift = sequenceBits;
+    private final long WORKER_ID_SHIFT = SEQUENCE_BITS;
 
     /** 数据标识id向左移17位(12+5). */
-    private final long dataCenterIdShift = sequenceBits + workerIdBits;
+    private final long DATA_CENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS;
 
     /** 时间截向左移22位(5+5+12). */
-    private final long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;
+    private final long TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATA_CENTER_ID_BITS;
 
     /** 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095). */
-    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+    private final long SEQUENCE_MASK = -1L ^ (-1L << SEQUENCE_BITS);
 
     /** 工作机器ID(0~31). */
     private long workerId;
@@ -67,11 +67,11 @@ public class SnowflakeIdWorker {
      * @author Rivis
      */
     public SnowflakeIdWorker(long workerId, long datacenterId) {
-        if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+        if (workerId > MAX_WORKER_ID || workerId < 0) {
+            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID));
         }
-        if (datacenterId > maxDataCenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDataCenterId));
+        if (datacenterId > MAX_DATA_CENTER_ID || datacenterId < 0) {
+            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", MAX_DATA_CENTER_ID));
         }
         this.workerId = workerId;
         this.dataCenterId = datacenterId;
@@ -94,7 +94,7 @@ public class SnowflakeIdWorker {
 
         //如果是同一时间生成的，则进行毫秒内序列
         if (lastTimestamp == timestamp) {
-            sequence = (sequence + 1) & sequenceMask;
+            sequence = (sequence + 1) & SEQUENCE_MASK;
             //毫秒内序列溢出
             if (sequence == 0) {
                 //阻塞到下一个毫秒,获得新的时间戳
@@ -110,9 +110,9 @@ public class SnowflakeIdWorker {
         lastTimestamp = timestamp;
 
         //移位并通过或运算拼到一起组成64位的ID
-        return ((timestamp - twepoch) << timestampLeftShift)
-                | (dataCenterId << dataCenterIdShift)
-                | (workerId << workerIdShift)
+        return ((timestamp - TWOPOCH) << TIMESTAMP_LEFT_SHIFT)
+                | (dataCenterId << DATA_CENTER_ID_SHIFT)
+                | (workerId << WORKER_ID_SHIFT)
                 | sequence;
     }
 
