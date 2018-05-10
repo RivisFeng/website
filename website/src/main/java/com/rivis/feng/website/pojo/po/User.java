@@ -2,51 +2,41 @@ package com.rivis.feng.website.pojo.po;
 
 import java.util.Date;
 
-/**
- * 用户实体类
- *
- * @author Rivis
- * @date 2018-04-25
- * @despaction
- */
 public class User {
+    private Long userId;
 
-    /** 用户ID. */
-    private String userId;
-
-    /** 用户姓名. */
     private String userName;
 
-    /** 用户密码. */
     private String userPassword;
 
-    /** 用户生日. */
+    private String userPricture;
+
     private Date userBirthday;
 
-    /** 用户性别. */
     private String userGender;
 
-    /** 用户手机. */
     private String userPhone;
 
-    /** 用户住址. */
+    private Long userCityId;
+
     private String userAddress;
 
-    /** 用户是否已经删除. */
-    private Integer userDelete;
+    private String userIsDelete;
 
-    /** 用户是否是VIP. */
-    private Integer userVip;
+    private String userIsVip;
 
-    /** 用户邮箱. */
     private String userMail;
 
-    public String getUserId() {
+    private Date userCreateTime;
+
+    private String userFrom;
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -63,6 +53,14 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword == null ? null : userPassword.trim();
+    }
+
+    public String getUserPricture() {
+        return userPricture;
+    }
+
+    public void setUserPricture(String userPricture) {
+        this.userPricture = userPricture == null ? null : userPricture.trim();
     }
 
     public Date getUserBirthday() {
@@ -89,6 +87,14 @@ public class User {
         this.userPhone = userPhone == null ? null : userPhone.trim();
     }
 
+    public Long getUserCityId() {
+        return userCityId;
+    }
+
+    public void setUserCityId(Long userCityId) {
+        this.userCityId = userCityId;
+    }
+
     public String getUserAddress() {
         return userAddress;
     }
@@ -97,20 +103,20 @@ public class User {
         this.userAddress = userAddress == null ? null : userAddress.trim();
     }
 
-    public Integer getUserDelete() {
-        return userDelete;
+    public String getUserIsDelete() {
+        return userIsDelete;
     }
 
-    public void setUserDelete(Integer userDelete) {
-        this.userDelete = userDelete;
+    public void setUserIsDelete(String userIsDelete) {
+        this.userIsDelete = userIsDelete == null ? null : userIsDelete.trim();
     }
 
-    public Integer getUserVip() {
-        return userVip;
+    public String getUserIsVip() {
+        return userIsVip;
     }
 
-    public void setUserVip(Integer userVip) {
-        this.userVip = userVip;
+    public void setUserIsVip(String userIsVip) {
+        this.userIsVip = userIsVip == null ? null : userIsVip.trim();
     }
 
     public String getUserMail() {
@@ -119,5 +125,21 @@ public class User {
 
     public void setUserMail(String userMail) {
         this.userMail = userMail == null ? null : userMail.trim();
+    }
+
+    public Date getUserCreateTime() {
+        return userCreateTime;
+    }
+
+    public void setUserCreateTime(Date userCreateTime) {
+        this.userCreateTime = userCreateTime;
+    }
+
+    public String getUserFrom() {
+        return userFrom;
+    }
+
+    public void setUserFrom(String userFrom) {
+        this.userFrom = userFrom == null ? null : userFrom.trim();
     }
 }
