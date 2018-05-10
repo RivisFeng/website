@@ -2,6 +2,12 @@ package com.rivis.feng.website.common.util;
 
 import java.math.BigDecimal;
 
+/**
+ * 金钱相关工具类
+ *
+ * @author Rivis
+ * @date 2018-05-10
+ */
 public class MoneyUtil {
 
     /** 汉语中数字大写. */
