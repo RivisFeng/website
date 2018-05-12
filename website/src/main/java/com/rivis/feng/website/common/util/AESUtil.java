@@ -219,6 +219,28 @@ public class AESUtil {
     }
 
     /**
+     * 加密数据,该加密方法每次生成的加密密钥都不相同，所以是不可逆的，
+     * 建议除了加密用户密码和生成一些校验码之类的工作外，其他不建议使用。
+     *
+     * @author Rivis
+     * @param data {String} 要加密的数据
+     * @return {String} 加密后的数据
+     */
+    public static String encryptInitSecretKey(String data) {
+        byte[] key = initSecretKey();
+        // 生成密钥
+        Key k = toKey(key);
+        // 加密数据
+        byte[] encryptData = new byte[0];
+        try {
+            encryptData = encrypt(data.getBytes(), k);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Base64Util.base64Encode(encryptData);
+    }
+
+    /**
      * 解密数据
      *
      * @author Rivis
