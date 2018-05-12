@@ -9,7 +9,7 @@ package com.rivis.feng.website.common.enums;
  */
 public enum BaseEnum {
 
-    SUCCESS(000000, "成功"),
+    SUCCESS(100000, "成功"),
 
     ERROR(999999, "成功");
 
