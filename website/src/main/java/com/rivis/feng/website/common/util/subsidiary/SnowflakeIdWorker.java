@@ -1,4 +1,4 @@
-package com.rivis.feng.website.common.util;
+package com.rivis.feng.website.common.util.subsidiary;
 
 /**
  * SnowFlake
@@ -123,7 +123,7 @@ public class SnowflakeIdWorker {
      * @return {long} 当前时间戳
      * @author Rivis
      */
-    protected long tilNextMillis(long lastTimestamp) {
+    private long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();
         while (timestamp <= lastTimestamp) {
             timestamp = timeGen();
@@ -137,7 +137,8 @@ public class SnowflakeIdWorker {
      * @return {long} 当前时间(毫秒)
      * @author Rivis
      */
-    protected long timeGen() {
+    private long timeGen() {
         return System.currentTimeMillis();
     }
+
 }

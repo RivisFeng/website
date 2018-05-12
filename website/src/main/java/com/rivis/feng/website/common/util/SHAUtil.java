@@ -1,6 +1,11 @@
 package com.rivis.feng.website.common.util;
 
+import com.rivis.feng.website.common.util.subsidiary.Keccak;
+
 import java.security.MessageDigest;
+
+import static com.rivis.feng.website.common.enums.SHAEnum.SHA3_256;
+import static com.rivis.feng.website.common.util.HexUtil.getHex;
 
 /**
  * SHA加密工具类
@@ -11,12 +16,13 @@ import java.security.MessageDigest;
 public class SHAUtil {
 
     /***
-     * SHA加密 生成40位SHA码
+     * SHA加密 生成40位SHA码,jdk自带的MessageDigest实现
      *
      * @author Rivis
      * @param inString {String} 待加密字符串
      * @return {String} 返回40位SHA码
      */
+    @Deprecated
     protected static String shaEncode(String inString) throws Exception {
         MessageDigest sha = null;
         try {
@@ -37,6 +43,19 @@ public class SHAUtil {
             hexValue.append(Integer.toHexString(val));
         }
         return hexValue.toString();
+    }
+
+    /***
+     * SHA加密 生成40位SHA码
+     *
+     * @author Rivis
+     * @param inString {String} 待加密字符串
+     * @return {String} 返回40位SHA码
+     */
+    protected static String encrypt(String inString) {
+        String inStringHex = getHex(inString.getBytes());
+        Keccak keccak = new Keccak();
+        return keccak.getHash(inStringHex, SHA3_256);
     }
 
 }

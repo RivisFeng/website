@@ -1,11 +1,13 @@
 package com.rivis.feng.website.common.util;
 
+import com.rivis.feng.website.common.util.subsidiary.SnowflakeIdWorker;
+
 import javax.validation.constraints.NotNull;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
 /**
- * 常用字符串操作类
+ * String工具类
  *
  * @author Rivis
  * @date 2018/5/9 21:37
@@ -115,34 +117,23 @@ public class StringUtil {
      * 加密用户密码
      *
      * @author Rivis
-     * @param userPassword {String} 要加密的用户密码
+     * @param inPassword {String} 要加密的用户密码
      * @return {String} 加密好的密码
      * @throws Exception
      */
-    public static String userPasswordEncode(String userPassword) throws Exception {
-        return SHAUtil.shaEncode(MD5Util.getMD5String(SHAUtil.shaEncode(userPassword)));
+    public static String userPasswordEncode(String inPassword) throws Exception {
+        return SHAUtil.encrypt(AESUtil.encryptInitSecretKey(inPassword));
     }
 
     /**
-     * 判断字符串的md5校验码是否与一个已知的md5码相匹配
-     *
-     * @param password {String} 要校验的字符串
-     * @param md5PwdStr {String} 已知的md5校验码
-     * @return {boolean}
+     * 校验密码是否正确
+     * @param inPassword {String} 待验证的字符串
+     * @param oldPassword {String} 使用MD5加密过的16进制字符串
+     * @return {boolean} 匹配返回true，不匹配返回false
      */
-    public static boolean isEqualsToMd5(String password, String md5PwdStr) {
-        String s = MD5Util.getMD5String(password);
-        return s.equals(md5PwdStr);
-    }
-
-    /**
-     * 验证字符串是否匹配
-     * @param unknown 待验证的字符串
-     * @param okHex 使用MD5加密过的16进制字符串
-     * @return 匹配返回true，不匹配返回false
-     */
-    public static boolean validate(String unknown , String okHex) {
-        return okHex.equals(MD5Util.encode2hex(unknown));
+    public static boolean validatePassword(String inPassword , String oldPassword) throws Exception {
+        String encryptPassword = userPasswordEncode(inPassword);
+        return encryptPassword.equals(oldPassword);
     }
 
 }
