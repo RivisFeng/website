@@ -17,7 +17,7 @@ public class SHAUtil {
      * @param inString {String} 待加密字符串
      * @return {String} 返回40位SHA码
      */
-    public static String shaEncode(String inString) throws Exception {
+    protected static String shaEncode(String inString) throws Exception {
         MessageDigest sha = null;
         try {
             sha = MessageDigest.getInstance("SHA");
