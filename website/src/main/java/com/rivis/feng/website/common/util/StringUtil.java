@@ -1,5 +1,6 @@
 package com.rivis.feng.website.common.util;
 
+import com.rivis.feng.website.common.constant.Constants;
 import com.rivis.feng.website.common.util.subsidiary.SnowflakeIdWorker;
 
 import javax.validation.constraints.NotNull;
@@ -54,7 +55,7 @@ public class StringUtil {
      */
     public static String stringCoding(@NotNull String param){
         try {
-            param = new String(param.getBytes("iso-8859-1"), "utf-8");
+            param = new String(param.getBytes(Constants.ISO_8859_1), Constants.UTF8);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
