@@ -10,6 +10,8 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES加密，解密工具类
  *
+ * 由Rivis创建，版权归属Rivis.Feng所有。
+ *
  * @author Rivis
  * @date 2018/5/9 22:24
  */
