@@ -1,7 +1,7 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : local
+ Source Server         : sureface
  Source Server Type    : MySQL
  Source Server Version : 50720
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 14/05/2018 18:44:08
+ Date: 20/05/2018 21:58:42
 */
 
 SET NAMES utf8mb4;
@@ -27,6 +27,6 @@ CREATE TABLE `subject`  (
   `subject_create_time` datetime(0) DEFAULT NULL COMMENT '科目创建时间',
   `subject_state` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '科目状态 0：禁用 1：启用（AES加密）',
   PRIMARY KEY (`subject_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '科目表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

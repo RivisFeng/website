@@ -1,7 +1,7 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : local
+ Source Server         : sureface
  Source Server Type    : MySQL
  Source Server Version : 50720
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 14/05/2018 18:44:48
+ Date: 20/05/2018 21:59:04
 */
 
 SET NAMES utf8mb4;
@@ -37,6 +37,6 @@ CREATE TABLE `user`  (
   `user_create_time` datetime(0) NOT NULL COMMENT '用户注册时间',
   `user_from` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户来源 0：平台自主注册 1：业务员开发 2：微博 3：微信 4：QQ 5：贴吧 6：淘宝（AES加密）',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
