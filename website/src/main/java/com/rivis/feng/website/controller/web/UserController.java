@@ -1,5 +1,6 @@
 package com.rivis.feng.website.controller.web;
 
+import com.rivis.feng.website.pojo.dto.RegisterInDto;
 import com.rivis.feng.website.service.UserService;
 import com.rivis.feng.website.pojo.dto.LoginInDto;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;
@@ -24,6 +25,11 @@ public class UserController {
     @RequestMapping(value = "/loginIn")
     public ResultDataDto loginIn(LoginInDto loginInDto) {
         ResultDataDto resultDataDto = userService.loginIn(loginInDto);
+        return resultDataDto;
+    }
+
+    public ResultDataDto register(RegisterInDto registerInDto) {
+        ResultDataDto resultDataDto = userService.register(registerInDto);
         return resultDataDto;
     }
 
