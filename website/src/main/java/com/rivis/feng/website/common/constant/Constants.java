@@ -18,6 +18,9 @@ public class Constants {
     /** UTF-8编码. */
     public static final String UTF8 = "UTF-8";
 
+    /** ISO_8859_1. */
+    public static final String ISO_8859_1 = "ISO_8859_1";
+
     /** cookie中的JSESSIONID名称. */
     public static final String J_SESSION_COOKIE = "JSESSIONID";
 }
