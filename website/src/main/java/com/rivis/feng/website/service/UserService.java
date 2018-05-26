@@ -1,6 +1,7 @@
 package com.rivis.feng.website.service;
 
 import com.rivis.feng.website.pojo.dto.LoginInDto;
+import com.rivis.feng.website.pojo.dto.RegisterInDto;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;
 
 /**
@@ -20,4 +21,13 @@ public interface UserService {
      * @return {ResultDataDto}
      */
     ResultDataDto loginIn(LoginInDto loginInDto);
+
+    /**
+     * 用户注册
+     *
+     * @author Rivis
+     * @return registerInDto {RegisterInDto}
+     * @param {ResultDataDto}
+     */
+    ResultDataDto register(RegisterInDto registerInDto);
 }

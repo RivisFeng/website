@@ -1,9 +1,10 @@
 package com.rivis.feng.website.common.util;
 
-import com.rivis.feng.website.common.constant.Constants;
+import com.rivis.feng.website.common.constant.SystemConstants;
+import com.rivis.feng.website.common.constant.UserConstants;
 import com.rivis.feng.website.common.util.subsidiary.SnowflakeIdWorker;
+import org.apache.commons.lang3.StringUtils;
 
-import javax.validation.constraints.NotNull;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
@@ -16,15 +17,26 @@ import java.util.regex.Pattern;
 public class StringUtil {
 
     /**
+     * 校验一个字符串是否为空
+     *
+     * @author Rivis
+     * @param param {String}
+     * @return {boolean}
+     */
+    public static boolean stringIsNull(String param) {
+        return StringUtils.isBlank(param);
+    }
+
+    /**
      * 生成自增主键ID,采用Twitter的开源自增ID算法Snowflake
      *
      * @author Rivis
-     * @return {String}
+     * @return {long}
      */
-    public static String createPrimaryKey() {
+    public static long createPrimaryKey() {
         SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(0,0);
         long id = snowflakeIdWorker.nextId();
-        return String.valueOf(id);
+        return id;
     }
 
     /**
@@ -36,8 +48,7 @@ public class StringUtil {
      */
     public static Boolean checkUrl(String url) {
         Boolean flag = false;
-        String regex = "^([hH][tT]{2}[pP]:/*|[hH][tT]{2}[pP][sS]:/*|[fF][tT][pP]:/*)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+(\\?{0,1}(([A-Za-z0-9-~]+\\={0,1})([A-Za-z0-9-~]*)\\&{0,1})*)$";
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(SystemConstants.CHECK_HTTP_URL);
         if (pattern.matcher(url).matches()) {
             flag = true;
         } else {
@@ -53,25 +64,13 @@ public class StringUtil {
      * @param param {String} 需要转码的数据
      * @return {String}
      */
-    public static String stringCoding(@NotNull String param){
+    public static String stringCoding(String param){
         try {
-            param = new String(param.getBytes(Constants.ISO_8859_1), Constants.UTF8);
+            param = new String(param.getBytes(SystemConstants.ISO_8859_1), SystemConstants.UTF8);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return param;
-    }
-
-    /**
-     * String类型字符串转String类型的数组
-     *
-     * @author Rivis
-     * @param orgStr {String} 要转为数组的字符串
-     * @param splitStr {String} 字符串转数组的条件
-     * @return {String[]} 字符串转为的数组
-     */
-    public static String[] splitToArray(String orgStr, String splitStr) {
-        return removeLastStr(orgStr, splitStr).split(splitStr);
     }
 
     /**
@@ -90,12 +89,24 @@ public class StringUtil {
     }
 
     /**
+     * String类型字符串转String类型的数组
+     *
+     * @author Rivis
+     * @param orgStr {String} 要转为数组的字符串
+     * @param splitStr {String} 字符串转数组的条件
+     * @return {String[]} 字符串转为的数组
+     */
+    public static String[] splitToArray(String orgStr,String splitStr) {
+        return removeLastStr(orgStr, splitStr).split(splitStr);
+    }
+
+    /**
      * 将Object类型转为String类型
      *
      * @param param {Object} 要转为String类型的Object类型
      * @return {String} 转为String类型的Object类型
      */
-    public static String toString(@NotNull Object param) {
+    public static String toString(Object param) {
         return param.toString();
     }
 
@@ -123,7 +134,7 @@ public class StringUtil {
      * @throws Exception
      */
     public static String userPasswordEncode(String inPassword) throws Exception {
-        return SHAUtil.encrypt(AESUtil.encryptInitSecretKey(inPassword));
+        return SHAUtil.encrypt(AESUtil.encrypt(inPassword));
     }
 
     /**
@@ -135,6 +146,56 @@ public class StringUtil {
     public static boolean validatePassword(String inPassword , String oldPassword) throws Exception {
         String encryptPassword = userPasswordEncode(inPassword);
         return encryptPassword.equals(oldPassword);
+    }
+
+    /**
+     * 加密字符串
+     * @param param
+     * @return
+     */
+    public static String encrypt(String param) {
+        if (!stringIsNull(param)) {
+            return AESUtil.encrypt(param);
+        }
+        return "";
+    }
+
+    /**
+     * 解密字符串
+     * @param param
+     * @return
+     */
+    public static String decrypt(String param) {
+        if (!stringIsNull(param)) {
+            return AESUtil.decrypt(param);
+        }
+        return "";
+    }
+
+    /**
+     * 验证是否是HTTP链接
+     *
+     * @author Rivis
+     * @param {String} value 某串数字
+     * @return {boolean}
+     * @throws
+     */
+    public static boolean checkPhone(String value) {
+        Boolean flag = false;
+        // 正则表达式
+        Pattern pattern = Pattern.compile(UserConstants.CHECK_PHONE);
+        if (stringIsNull(value)) {
+            flag = pattern.matcher(value).matches();
+        }
+        return flag;
+    }
+
+    public static Boolean stringIsEquals(String param1, String param2) {
+        Boolean flag = false;
+        if (StringUtils.equals(param1, param2)) {
+            flag = true;
+        }
+        return flag;
     }
 
 }
