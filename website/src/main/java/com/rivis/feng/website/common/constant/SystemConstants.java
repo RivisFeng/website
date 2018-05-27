@@ -27,7 +27,7 @@ public class SystemConstants {
     /** 系统错误提示. */
     public static final String SYSTEM_ERROR = "系统繁忙！";
 
-    /** 系统错误提示. */
+    /** 日期格式化格式. */
     public static final String DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
 
     /** 验证是否是HTTP链接的正则表达式. */
