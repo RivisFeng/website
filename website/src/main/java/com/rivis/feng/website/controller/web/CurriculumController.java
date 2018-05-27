@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/5/21 22:09
  * @description
  */
-@RequestMapping(value = "/website/curriculum")
 @RestController
+@RequestMapping(value = "/website/curriculum")
 public class CurriculumController {
 
     /**

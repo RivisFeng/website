@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/5/21 22:11
  * @description
  */
-@RequestMapping(value = "/website/system")
 @RestController
+@RequestMapping(value = "/website/system")
 public class SystemController {
 
     /**

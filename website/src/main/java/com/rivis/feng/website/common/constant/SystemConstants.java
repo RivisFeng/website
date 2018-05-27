@@ -27,6 +27,9 @@ public class SystemConstants {
     /** 系统错误提示. */
     public static final String SYSTEM_ERROR = "系统繁忙！";
 
+    /** 系统错误提示. */
+    public static final String DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
+
     /** 验证是否是HTTP链接的正则表达式. */
     public static final String CHECK_HTTP_URL = "^([hH][tT]{2}[pP]:/*|[hH][tT]{2}[pP][sS]:/*|[fF][tT][pP]:/*)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+(\\?{0,1}(([A-Za-z0-9-~]+\\={0,1})([A-Za-z0-9-~]*)\\&{0,1})*)$";
 

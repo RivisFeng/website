@@ -26,7 +26,7 @@ public class RegisterInDto {
     private String userPicture;
 
     /** 用户生日. */
-    private Date userBirthday;
+    private String userBirthday;
 
     /** 用户性别. */
     private String userGender;
@@ -51,7 +51,7 @@ public class RegisterInDto {
     public RegisterInDto() {
     }
 
-    public RegisterInDto(@NotNull String userName, @NotNull String userPassword, @NotNull String userCheckPassword, String userPicture, Date userBirthday, String userGender, @NotNull String userPhone, Long userCityId, String userAddress, String userMail, @NotNull String userFrom) {
+    public RegisterInDto(@NotNull String userName, @NotNull String userPassword, @NotNull String userCheckPassword, String userPicture, String userBirthday, String userGender, @NotNull String userPhone, Long userCityId, String userAddress, String userMail, @NotNull String userFrom) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userCheckPassword = userCheckPassword;
@@ -97,11 +97,11 @@ public class RegisterInDto {
         this.userPicture = userPicture;
     }
 
-    public Date getUserBirthday() {
+    public String getUserBirthday() {
         return userBirthday;
     }
 
-    public void setUserBirthday(Date userBirthday) {
+    public void setUserBirthday(String userBirthday) {
         this.userBirthday = userBirthday;
     }
 

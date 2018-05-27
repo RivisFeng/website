@@ -17,6 +17,7 @@ import com.rivis.feng.website.pojo.dto.ResultDataDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -96,8 +97,8 @@ public class UserServiceImpl implements UserService {
 
         try {
             flag = createUser(registerInDto.getUserName(), registerInDto.getUserPhone(),
-                    registerInDto.getUserPassword(), registerInDto.getUserPicture(),
-                    registerInDto.getUserGender(),
+                    registerInDto.getUserPassword(), registerInDto.getUserBirthday(),
+                    registerInDto.getUserPicture(), registerInDto.getUserGender(),
                     registerInDto.getUserCityId(), registerInDto.getUserAddress(),
                     registerInDto.getUserMail(), registerInDto.getUserFrom());
         } catch (Exception e) {
@@ -118,6 +119,7 @@ public class UserServiceImpl implements UserService {
      * @param userName {String} 用户姓名
      * @param userPhone {String} 用户手机
      * @param userPassword {String} 用户密码
+     * @param userBirthday {String} 用户生日
      * @param userPicture {String} 用户头像
      * @param userGender {String} 用户性别
      * @param userCity {Long} 用户所在城市
@@ -128,12 +130,12 @@ public class UserServiceImpl implements UserService {
      * @throws Exception 可能会抛出的异常
      */
     private Boolean createUser(String userName, String userPhone, String userPassword,
-                               String userPicture, String userGender,
+                               String userBirthday, String userPicture, String userGender,
                                Long userCity, String userAddress, String userMail,
                                String userFrom) throws Exception {
         return createUser(StringUtil.createPrimaryKey(), userName, userPhone, userPassword,
-                userPicture, userGender, new Date(), userCity, userAddress, userMail,
-                userFrom, UserConstants.USER_NO_DELETE, UserConstants.USER_NO_VIP);
+                userPicture, userGender, userBirthday, userCity, userAddress, userMail,
+                userFrom, UserConstants.USER_NO_DELETE, UserConstants.USER_NO_VIP, new Date());
     }
 
     /**
@@ -158,9 +160,9 @@ public class UserServiceImpl implements UserService {
      * @date 2018/04/27
      */
     private Boolean createUser(Long userId, String userName, String userPhone, String userPassword,
-                               String userPicture, String userGender, Date userBirthday,
+                               String userPicture, String userGender, String userBirthday,
                                Long userCity, String userAddress, String userMail, String userFrom,
-                               String userIsDelete, String userIsVip) throws Exception {
+                               String userIsDelete, String userIsVip, Date userCreateTime) throws Exception {
         // 创建一个用户对象
         User user = new User();
         // 判断用户名是否为空
@@ -234,10 +236,14 @@ public class UserServiceImpl implements UserService {
             user.setUserMail(StringUtil.encrypt(userMail));
         }
         // 判断用户生日是否为空
-        if (DateUtil.dateIsNull(userBirthday)) {
-            user.setUserBirthday(userBirthday);
+        if (!StringUtil.stringIsNull(userBirthday)) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SystemConstants.DATE_FORMAT);
+            user.setUserBirthday(simpleDateFormat.parse(userBirthday));
         } else {
             user.setUserBirthday(new Date());
+        }
+        if (!DateUtil.dateIsNull(userCreateTime)) {
+            user.setUserCreateTime(userCreateTime);
         }
 
         return insertOrUpdate(user);
@@ -255,6 +261,7 @@ public class UserServiceImpl implements UserService {
 
         User tempUser = userMapper.selectByPrimaryKey(user.getUserId());
         if (tempUser == null) {
+            System.err.println(user.toString());
             flag = userMapper.insert(user);
         } else {
             flag = userMapper.updateByPrimaryKey(user);

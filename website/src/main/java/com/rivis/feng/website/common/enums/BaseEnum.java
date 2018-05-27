@@ -11,7 +11,7 @@ public enum BaseEnum {
 
     SUCCESS(100000, "成功"),
 
-    ERROR(999999, "成功");
+    ERROR(999999, "失败");
 
     private Integer code;
 

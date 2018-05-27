@@ -14,6 +14,7 @@ public class StringUtilTest {
 
     @Test
     public void createPrimaryKey() {
+        System.err.println(StringUtil.createPrimaryKey());
     }
 
     @Test
