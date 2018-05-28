@@ -1,6 +1,7 @@
 package com.rivis.feng.website.controller.web;
 
 import com.rivis.feng.website.common.util.ResultDataUtil;
+import com.rivis.feng.website.pojo.dto.AdminInDto;
 import com.rivis.feng.website.pojo.dto.RegisterInDto;
 import com.rivis.feng.website.service.UserService;
 import com.rivis.feng.website.pojo.dto.LoginInDto;
@@ -36,6 +37,15 @@ public class UserController {
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
     public ResultDataDto register(RegisterInDto registerInDto) {
         boolean flag = userService.register(registerInDto);
+        if (flag) {
+            return ResultDataUtil.success();
+        }
+        return ResultDataUtil.error();
+    }
+
+    @RequestMapping(value = "/addAdmin")
+    public ResultDataDto addAdmin(AdminInDto adminInDto) {
+        boolean flag = userService.addAdmin(adminInDto);
         if (flag) {
             return ResultDataUtil.success();
         }

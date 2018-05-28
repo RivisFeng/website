@@ -1,5 +1,6 @@
 package com.rivis.feng.website.service;
 
+import com.rivis.feng.website.pojo.dto.AdminInDto;
 import com.rivis.feng.website.pojo.dto.LoginInDto;
 import com.rivis.feng.website.pojo.dto.RegisterInDto;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;

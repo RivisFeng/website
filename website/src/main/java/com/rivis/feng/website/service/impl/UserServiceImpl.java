@@ -7,6 +7,7 @@ import com.rivis.feng.website.common.exception.UserException;
 import com.rivis.feng.website.common.util.DateUtil;
 import com.rivis.feng.website.common.util.StringUtil;
 import com.rivis.feng.website.dao.UserMapper;
+import com.rivis.feng.website.pojo.dto.AdminInDto;
 import com.rivis.feng.website.pojo.dto.RegisterInDto;
 import com.rivis.feng.website.pojo.po.User;
 import com.rivis.feng.website.pojo.po.UserExample;
