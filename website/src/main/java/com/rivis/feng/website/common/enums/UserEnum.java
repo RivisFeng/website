@@ -32,7 +32,7 @@ public enum UserEnum {
 
     PLEASE_IMPORT_CITY_ADDRESS(999988, "请选择你所在的城市住址"),
 
-    PLEASE_IMPORT_DEAIL_ADDRESS(999988, "请填写你的详细住址"),
+    PLEASE_IMPORT_DEAIL_ADDRESS(999980, "请填写你的详细住址"),
 
     APPLY_FOR_ADMIN_SUCCESS(999987, "申请成为管理员成功"),
 
@@ -41,6 +41,14 @@ public enum UserEnum {
     APPLY_FOR_TEACHER_SUCCESS(999985, "申请成为教师成功"),
 
     APPLY_FOR_TEACHER_ERROR(999984, "申请成为教师失败"),
+
+    USER_ID_IS_NULL(999983, "用户ID为空"),
+
+    ADMIN_TYPE_IS_NULL(999982, "管理员类型为空"),
+
+    ADMIN_STATE_IS_NULL(999981, "管理员状态为空"),
+
+    ADMIN_ID_IS_NULL(999979, "管理员ID为空"),
     ;
 
     private Integer code;

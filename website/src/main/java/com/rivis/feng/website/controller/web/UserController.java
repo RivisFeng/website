@@ -3,6 +3,7 @@ package com.rivis.feng.website.controller.web;
 import com.rivis.feng.website.common.util.ResultDataUtil;
 import com.rivis.feng.website.pojo.dto.AdminInDto;
 import com.rivis.feng.website.pojo.dto.RegisterInDto;
+import com.rivis.feng.website.service.AdminService;
 import com.rivis.feng.website.service.UserService;
 import com.rivis.feng.website.pojo.dto.LoginInDto;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;
@@ -25,6 +26,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AdminService adminService;
+
     @RequestMapping(value = "/loginIn")
     public ResultDataDto loginIn(LoginInDto loginInDto) {
         boolean flag = userService.loginIn(loginInDto);
@@ -45,7 +49,7 @@ public class UserController {
 
     @RequestMapping(value = "/addAdmin")
     public ResultDataDto addAdmin(AdminInDto adminInDto) {
-        boolean flag = userService.addAdmin(adminInDto);
+        boolean flag = adminService.addAdmin(adminInDto);
         if (flag) {
             return ResultDataUtil.success();
         }

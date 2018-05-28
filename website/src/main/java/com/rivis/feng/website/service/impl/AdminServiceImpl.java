@@ -13,6 +13,7 @@ import com.rivis.feng.website.pojo.po.AdminUserExample.Criteria;
 import com.rivis.feng.website.pojo.query.AdminQuery;
 import com.rivis.feng.website.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
  * @author Rivis
  * @date 2018/05/28
  */
+@Service
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
