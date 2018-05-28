@@ -18,16 +18,16 @@ public interface UserService {
      *
      * @author Rivis
      * @param loginInDto {LoginInDto}
-     * @return {ResultDataDto}
+     * @return {boolean}
      */
-    ResultDataDto loginIn(LoginInDto loginInDto);
+    boolean loginIn(LoginInDto loginInDto);
 
     /**
      * 用户注册
      *
      * @author Rivis
      * @return registerInDto {RegisterInDto}
-     * @param {ResultDataDto}
+     * @param {boolean}
      */
-    ResultDataDto register(RegisterInDto registerInDto);
+    boolean register(RegisterInDto registerInDto);
 }

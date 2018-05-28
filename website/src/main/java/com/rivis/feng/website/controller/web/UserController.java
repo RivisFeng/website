@@ -26,14 +26,20 @@ public class UserController {
 
     @RequestMapping(value = "/loginIn")
     public ResultDataDto loginIn(LoginInDto loginInDto) {
-        ResultDataDto resultDataDto = userService.loginIn(loginInDto);
-        return resultDataDto;
+        boolean flag = userService.loginIn(loginInDto);
+        if (flag) {
+            return ResultDataUtil.success();
+        }
+        return ResultDataUtil.error();
     }
 
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
     public ResultDataDto register(RegisterInDto registerInDto) {
-        ResultDataDto resultDataDto = userService.register(registerInDto);
-        return resultDataDto;
+        boolean flag = userService.register(registerInDto);
+        if (flag) {
+            return ResultDataUtil.success();
+        }
+        return ResultDataUtil.error();
     }
 
 

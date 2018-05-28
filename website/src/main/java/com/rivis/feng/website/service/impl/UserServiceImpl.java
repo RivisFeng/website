@@ -3,6 +3,7 @@ package com.rivis.feng.website.service.impl;
 import com.rivis.feng.website.common.constant.SystemConstants;
 import com.rivis.feng.website.common.constant.UserConstants;
 import com.rivis.feng.website.common.enums.UserEnum;
+import com.rivis.feng.website.common.exception.UserException;
 import com.rivis.feng.website.common.util.DateUtil;
 import com.rivis.feng.website.common.util.StringUtil;
 import com.rivis.feng.website.dao.UserMapper;
@@ -42,16 +43,16 @@ public class UserServiceImpl implements UserService {
      * @author Rivis
      */
     @Override
-    public ResultDataDto loginIn(LoginInDto loginInDto) {
+    public boolean loginIn(LoginInDto loginInDto) {
         UserExample userExample = new UserExample();
         Criteria criteria = userExample.createCriteria();
         criteria.andUserPhoneEqualTo(loginInDto.getUserPhone());
         criteria.andUserPasswordEqualTo(loginInDto.getUserPassword());
         List<User> userList = userMapper.selectByExample(userExample);
         if (userList.size() > 0) {
-            return ResultDataUtil.success();
+            return true;
         }
-        return null;
+        return false;
     }
 
     /**
@@ -62,36 +63,36 @@ public class UserServiceImpl implements UserService {
      * @return {ResultDataDto}
      */
     @Override
-    public ResultDataDto register(RegisterInDto registerInDto) {
+    public boolean register(RegisterInDto registerInDto) throws UserException {
         Boolean flag = false;
         // 验证手机号码手否为空
         if (StringUtil.stringIsNull(registerInDto.getUserPhone())) {
-            ResultDataUtil.error(UserEnum.USER_PHONE_IS_NULL.getCode(),
+            throw new UserException(UserEnum.USER_PHONE_IS_NULL.getCode(),
                     UserEnum.USER_PHONE_IS_NULL.getMessage());
         }
         // 验证用户输入的手机号码是否是手机号码
         if (StringUtil.checkPhone(registerInDto.getUserPhone())) {
-            ResultDataUtil.error(UserEnum.PHONE_IS_NOT_PHONE.getCode(),
+            throw new UserException(UserEnum.PHONE_IS_NOT_PHONE.getCode(),
                     UserEnum.PHONE_IS_NOT_PHONE.getMessage());
         }
         // 验证用户注册平台是否为空
         if (StringUtil.stringIsNull(registerInDto.getUserFrom())) {
-            ResultDataUtil.error(UserEnum.USER_REGISTER_IS_NULL.getCode(),
+            throw new UserException(UserEnum.USER_REGISTER_IS_NULL.getCode(),
                     UserEnum.USER_REGISTER_IS_NULL.getMessage());
         }
         // 验证用户输入密码是否为空
         if (StringUtil.stringIsNull(registerInDto.getUserPassword())) {
-            ResultDataUtil.error(UserEnum.USER_PASSWORD_IS_NULL.getCode(),
+            throw new UserException(UserEnum.USER_PASSWORD_IS_NULL.getCode(),
                     UserEnum.USER_PASSWORD_IS_NULL.getMessage());
         }
         // 验证用户第二次输入密码是否为空
         if (StringUtil.stringIsNull(registerInDto.getUserCheckPassword())) {
-            ResultDataUtil.error(UserEnum.USER_PASSWORD_IS_NULL.getCode(),
+            throw new UserException(UserEnum.USER_PASSWORD_IS_NULL.getCode(),
                     UserEnum.USER_PASSWORD_IS_NULL.getMessage());
         }
         // 验证用户两次输入的密码是否一致
         if (!registerInDto.getUserPassword().equals(registerInDto.getUserCheckPassword())) {
-            ResultDataUtil.error(UserEnum.USER_PASSWORD_CHECK_ERROR.getCode(),
+            throw new UserException(UserEnum.USER_PASSWORD_CHECK_ERROR.getCode(),
                     UserEnum.USER_PASSWORD_CHECK_ERROR.getMessage());
         }
 
@@ -105,11 +106,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
 
-        if (flag) {
-            return ResultDataUtil.success();
-        }
-
-        return ResultDataUtil.error();
+        return flag;
     }
 
     /**
