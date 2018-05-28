@@ -52,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
             throw new UserException(UserEnum.ADMIN_STATE_IS_NULL.getCode(),
                     UserEnum.ADMIN_STATE_IS_NULL.getMessage());
         }
-        return createAdminUser(null, adminInDto.getUserId(), adminInDto.getAdminType(),
+        return createAdminUser(adminInDto.getUserId(), adminInDto.getAdminType(),
                 adminInDto.getAdminState());
     }
 
@@ -153,6 +153,19 @@ public class AdminServiceImpl implements AdminService {
     private boolean createAdminUser(Long userId,
                                     String adminType) {
         return createAdminUser(StringUtil.createPrimaryKey(), userId, adminType);
+    }
+
+    /**
+     * 创建用户实体类
+     *
+     * @author Rivis
+     * @param userId {Long} 用户ID
+     * @param adminType {String} 管理员类型
+     * @return {boolean} 返回的结果
+     */
+    private boolean createAdminUser(Long userId,
+                                    String adminType, String adminState) {
+        return createAdminUser(StringUtil.createPrimaryKey(), userId, adminType, adminState);
     }
 
     /**
