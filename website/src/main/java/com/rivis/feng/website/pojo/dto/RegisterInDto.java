@@ -11,15 +11,12 @@ import java.util.Date;
 public class RegisterInDto {
 
     /** 用户昵称. */
-    @NotNull
     private String userName;
 
     /** 用户密码. */
-    @NotNull
     private String userPassword;
 
     /** 用户重复输入校验密码. */
-    @NotNull
     private String userCheckPassword;
 
     /** 用户头像. */
@@ -32,7 +29,6 @@ public class RegisterInDto {
     private String userGender;
 
     /** 用户手机. */
-    @NotNull
     private String userPhone;
 
     /** 用户所在城市. */
@@ -45,13 +41,12 @@ public class RegisterInDto {
     private String userMail;
 
     /** 用户注册来源. */
-    @NotNull
     private String userFrom;
 
     public RegisterInDto() {
     }
 
-    public RegisterInDto(@NotNull String userName, @NotNull String userPassword, @NotNull String userCheckPassword, String userPicture, String userBirthday, String userGender, @NotNull String userPhone, Long userCityId, String userAddress, String userMail, @NotNull String userFrom) {
+    public RegisterInDto(String userName, String userPassword, String userCheckPassword, String userPicture, String userBirthday, String userGender, String userPhone, Long userCityId, String userAddress, String userMail, String userFrom) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userCheckPassword = userCheckPassword;
