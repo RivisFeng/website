@@ -63,4 +63,6 @@ public class SystemConstants {
     /** 加密后的数字零. */
     public static final String ENCRYPT_NUMBER_ZERO = "q/8u/PKPRgzCK1h2cYfuPg==";
 
+    /** 数字为0的Long型. */
+    public static final Long ZERO_LONG = 0L;
 }

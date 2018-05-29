@@ -40,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public boolean addAdmin(AdminInDto adminInDto) {
-        if (StringUtil.stringIsNull(adminInDto.getUserId().toString())) {
+        if (!SystemConstants.ZERO_LONG.equals(adminInDto.getUserId())) {
             throw new UserException(UserEnum.USER_ID_IS_NULL.getCode(),
                     UserEnum.USER_ID_IS_NULL.getMessage());
         }
@@ -86,11 +86,11 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public boolean updateAdmin(AdminInDto adminInDto) {
-        if (StringUtil.stringIsNull(adminInDto.getAdminId().toString())) {
+        if (!SystemConstants.ZERO_LONG.equals(adminInDto.getAdminId())) {
             throw new UserException(UserEnum.USER_ID_IS_NULL.getCode(),
                     UserEnum.USER_ID_IS_NULL.getMessage());
         }
-        if (StringUtil.stringIsNull(adminInDto.getUserId().toString())) {
+        if (!SystemConstants.ZERO_LONG.equals(adminInDto.getUserId())) {
             throw new UserException(UserEnum.USER_ID_IS_NULL.getCode(),
                     UserEnum.USER_ID_IS_NULL.getMessage());
         }
@@ -116,7 +116,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public AdminUser selectAdmin(Long param) {
-        if (StringUtil.stringIsNull(param.toString())) {
+        if (!SystemConstants.ZERO_LONG.equals(param)) {
             throw new UserException(UserEnum.USER_ID_IS_NULL.getCode(),
                     UserEnum.USER_ID_IS_NULL.getMessage());
         }
@@ -134,7 +134,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public List<AdminUser> listAdmin(AdminQuery adminQuery) {
-        if (StringUtil.stringIsNull(adminQuery.getAdminId().toString())) {
+        if (!SystemConstants.ZERO_LONG.equals(adminQuery.getAdminId())) {
             throw new UserException(UserEnum.ADMIN_ID_IS_NULL.getCode(),
                     UserEnum.ADMIN_ID_IS_NULL.getMessage());
         }
@@ -251,12 +251,12 @@ public class AdminServiceImpl implements AdminService {
     private AdminUser getAdminUser(Long adminUserId, Long userId,
                                    String adminType, String adminState, Date adminCreateTime) {
         AdminUser adminUser = new AdminUser();
-        if (!StringUtil.stringIsNull(adminUserId.toString())) {
+        if (SystemConstants.ZERO_LONG.equals(adminUserId)) {
             adminUser.setAdminId(adminUserId);
         } else {
             adminUser.setAdminId(StringUtil.createPrimaryKey());
         }
-        if (!StringUtil.stringIsNull(userId.toString())) {
+        if (SystemConstants.ZERO_LONG.equals(userId)) {
             adminUser.setAdminUserId(userId);
         }
         if (!StringUtil.stringIsNull(adminType)) {
@@ -276,10 +276,10 @@ public class AdminServiceImpl implements AdminService {
     private AdminUserExample getExample(AdminUser adminUser) {
         AdminUserExample adminUserExample = new AdminUserExample();
         Criteria criteria = adminUserExample.createCriteria();
-        if (!StringUtil.stringIsNull(adminUser.getAdminId().toString())) {
+        if (SystemConstants.ZERO_LONG.equals(adminUser.getAdminId())) {
             criteria.andAdminIdEqualTo(adminUser.getAdminId());
         }
-        if (!StringUtil.stringIsNull(adminUser.getAdminUserId().toString())) {
+        if (SystemConstants.ZERO_LONG.equals(adminUser.getAdminUserId())) {
             criteria.andAdminUserIdEqualTo(adminUser.getAdminUserId());
         }
         if (!StringUtil.stringIsNull(adminUser.getAdminType())) {

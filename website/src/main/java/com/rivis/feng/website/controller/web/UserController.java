@@ -56,5 +56,14 @@ public class UserController {
         return ResultDataUtil.error();
     }
 
+    @RequestMapping(value = "/deleteAdmin")
+    public ResultDataDto deleteAdmin(long adminId) {
+        boolean flag = adminService.deleteAdmin(adminId);
+        if (flag) {
+            return ResultDataUtil.success();
+        }
+        return ResultDataUtil.error();
+    }
+
 
 }

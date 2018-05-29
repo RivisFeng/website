@@ -195,7 +195,7 @@ public class UserServiceImpl implements UserService {
             user.setUserGender(SystemConstants.ENCRYPT_NUMBER_ONE);
         }
         // 判断用户所在城市是否为空
-        if (!StringUtil.stringIsNull(userCity.toString())) {
+        if (SystemConstants.ZERO_LONG.equals(userCity)) {
             user.setUserCityId(userCity);
         }
         // 判断用户详细住址是否为空
@@ -259,7 +259,6 @@ public class UserServiceImpl implements UserService {
 
         User tempUser = userMapper.selectByPrimaryKey(user.getUserId());
         if (tempUser == null) {
-            System.err.println(user.toString());
             flag = userMapper.insert(user);
         } else {
             flag = userMapper.updateByPrimaryKey(user);
