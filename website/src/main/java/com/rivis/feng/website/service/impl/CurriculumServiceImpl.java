@@ -1,134 +1,170 @@
-package com.rivis.feng.website.service;
+package com.rivis.feng.website.service.impl;
 
 import com.rivis.feng.website.pojo.po.Curriculum;
+import com.rivis.feng.website.service.CurriculumService;
 
 import java.util.List;
 
 /**
- * 课程业务逻辑接口
+ * 课程业务逻辑实现
  *
  * @author Rivis
- * @date 2018/5/27 16:50
+ * @date 2018/5/30 20:05
  */
-public interface CurriculumService {
-
+public class CurriculumServiceImpl implements CurriculumService {
     /**
      * 添加课程
      *
-     * @author Rivis
      * @param param {Object} 需要添加的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    boolean addCurriculumByObject(Object param);
+    @Override
+    public boolean addCurriculumByObject(Object param) {
+        return false;
+    }
 
     /**
      * 添加课程
      *
-     * @author Rivis
      * @param curriculum {Curriculum} 需要添加的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    boolean addCurriculumByCurriculumAny(Curriculum curriculum);
+    @Override
+    public boolean addCurriculumByCurriculumAny(Curriculum curriculum) {
+        return false;
+    }
 
     /**
      * 查询课程列表
      *
-     * @author Rivis
      * @param param {Object} 查询课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    List<Curriculum> listCurriculumByObject(Object param);
+    @Override
+    public List<Curriculum> listCurriculumByObject(Object param) {
+        return null;
+    }
 
     /**
      * 查询课程列表
      *
-     * @author Rivis
      * @param curriculum {Curriculum} 需要添加的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    List<Curriculum> listCurriculumByCurriculumAny(Curriculum curriculum);
+    @Override
+    public List<Curriculum> listCurriculumByCurriculumAny(Curriculum curriculum) {
+        return null;
+    }
 
     /**
      * 删除课程
      *
-     * @author Rivis
      * @param param {Object} 需要删除的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    boolean deleteCurriculumByObject(Object param);
+    @Override
+    public boolean deleteCurriculumByObject(Object param) {
+        return false;
+    }
 
     /**
      * 根据ID删除课程
      *
-     * @author Rivis
      * @param curriculumId {Long} 需要删除的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    boolean deleteCurriculumById(Long curriculumId);
+    @Override
+    public boolean deleteCurriculumById(Long curriculumId) {
+        return false;
+    }
 
     /**
      * 根据课程条件删除相应课程
      *
-     * @author Rivis
      * @param curriculum {Curriculum} 需要删除的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    boolean deleteCurriculumByCurriculumAny(Curriculum curriculum);
+    @Override
+    public boolean deleteCurriculumByCurriculumAny(Curriculum curriculum) {
+        return false;
+    }
 
     /**
      * 更新课程
      *
-     * @author Rivis
      * @param param {Object} 需要更新的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    boolean updateCurriculumByObject(Object param);
+    @Override
+    public boolean updateCurriculumByObject(Object param) {
+        return false;
+    }
 
     /**
      * 更新课程
      *
-     * @author Rivis
      * @param curriculum {Curriculum} 需要添加的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    boolean updateCurriculumByCurriculumAny(Curriculum curriculum);
+    @Override
+    public boolean updateCurriculumByCurriculumAny(Curriculum curriculum) {
+        return false;
+    }
 
     /**
      * 查询课程
      *
-     * @author Rivis
      * @param curriculumId {Long} 需要查询的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    Curriculum selectCurriculumById(Long curriculumId);
+    @Override
+    public Curriculum selectCurriculumById(Long curriculumId) {
+        return null;
+    }
 
     /**
      * 查询课程
      *
-     * @author Rivis
      * @param param {Object} 需要查询的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    Curriculum selectCurriculumByObject(Object param);
+    @Override
+    public Curriculum selectCurriculumByObject(Object param) {
+        return null;
+    }
 
     /**
      * 查询课程
      *
-     * @author Rivis
      * @param curriculum {Curriculum} 需要查询的课程的参数
      * @return {boolean} 返回的结果
+     * @author Rivis
      * @date 2018/5/30 20:30
      */
-    Curriculum selectCurriculumByCurriculumAny(Curriculum curriculum);
+    @Override
+    public Curriculum selectCurriculumByCurriculumAny(Curriculum curriculum) {
+        return null;
+    }
 }
