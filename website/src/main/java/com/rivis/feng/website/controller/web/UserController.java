@@ -7,6 +7,7 @@ import com.rivis.feng.website.service.AdminService;
 import com.rivis.feng.website.service.UserService;
 import com.rivis.feng.website.pojo.dto.LoginInDto;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 用户Controller
@@ -47,10 +49,21 @@ public class UserController {
 
     @RequestMapping(value = "/retur")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public void check(HttpServletRequest request, HttpServletResponse response) {
+    public ResultDataDto check(HttpServletRequest request, HttpServletResponse response) {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-
+        if (savedRequest != null) {
+            String targetUrl = savedRequest.getRedirectUrl();
+            System.err.println("引发跳转的请求是：" + targetUrl);
+            if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
+                try {
+                    redirectStrategy.sendRedirect(request, response, "/login.html");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return ResultDataUtil.error();
+        }
     }
 
     @RequestMapping(value = "/loginIn")
