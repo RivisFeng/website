@@ -4,6 +4,7 @@ import com.rivis.feng.website.common.constant.SystemConstants;
 import com.rivis.feng.website.common.constant.UserConstants;
 import com.rivis.feng.website.common.util.subsidiary.SnowflakeIdWorker;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;

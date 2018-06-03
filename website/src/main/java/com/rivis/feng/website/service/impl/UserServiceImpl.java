@@ -17,6 +17,11 @@ import com.rivis.feng.website.common.util.ResultDataUtil;
 import com.rivis.feng.website.pojo.dto.LoginInDto;
 import com.rivis.feng.website.pojo.dto.ResultDataDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -31,10 +36,13 @@ import java.util.List;
  * @despaction
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService,UserDetailsService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * web用户登录
@@ -265,5 +273,31 @@ public class UserServiceImpl implements UserService {
         }
 
         return flag > 0;
+    }
+
+    /**
+     * Locates the user based on the username. In the actual implementation, the search
+     * may possibly be case sensitive, or case insensitive depending on how the
+     * implementation instance is configured. In this case, the <code>UserDetails</code>
+     * object that comes back may have a username that is of a different case than what
+     * was actually requested..
+     *
+     * @param username the username identifying the user whose data is required.
+     * @return a fully populated user record (never <code>null</code>)
+     * @throws UsernameNotFoundException if the user could not be found or the user has no
+     *                                   GrantedAuthority
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserExample userExample = new UserExample();
+        Criteria criteria = userExample.createCriteria();
+        criteria.andUserPhoneEqualTo(StringUtil.encrypt(username));
+        List<User> user = userMapper.selectByExample(userExample);
+        if (user == null && user.size() > 0) {
+            throw new UsernameNotFoundException("user " + username + " not found");
+        }
+        return new org.springframework.security.core.userdetails.User(username,
+                user.get(0).getUserPassword(),
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }

@@ -49,6 +49,10 @@ public enum UserEnum {
     ADMIN_STATE_IS_NULL(999981, "管理员状态为空"),
 
     ADMIN_ID_IS_NULL(999979, "管理员ID为空"),
+
+    USER_LOGIN_SUCCESS(999978, "用户登录成功"),
+
+    USER_LOGIN_ERROR(999977, "用户登录失败"),
     ;
 
     private Integer code;

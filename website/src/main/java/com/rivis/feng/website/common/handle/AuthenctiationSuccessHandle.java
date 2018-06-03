@@ -1,6 +1,7 @@
 package com.rivis.feng.website.common.handle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rivis.feng.website.common.util.ResultDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -23,6 +24,7 @@ public class AuthenctiationSuccessHandle extends SimpleUrlAuthenticationSuccessH
         System.err.println("登录成功！");
 
         response.setContentType("/application/json;charset=UTF-8");
-        response.getWriter().write(objectMapper.writeValueAsString(authentication));
+        response.getWriter().write(
+                objectMapper.writeValueAsString(ResultDataUtil.success(authentication)));
     }
 }

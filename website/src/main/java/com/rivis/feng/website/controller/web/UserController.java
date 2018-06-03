@@ -47,7 +47,7 @@ public class UserController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/retur")
+    /*@RequestMapping(value = "/retur")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public ResultDataDto check(HttpServletRequest request, HttpServletResponse response) {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
@@ -64,7 +64,7 @@ public class UserController {
             }
             return ResultDataUtil.error();
         }
-    }
+    }*/
 
     @RequestMapping(value = "/loginIn")
     public ResultDataDto loginIn(LoginInDto loginInDto) {

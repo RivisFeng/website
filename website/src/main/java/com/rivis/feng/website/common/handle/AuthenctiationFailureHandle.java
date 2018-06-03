@@ -1,6 +1,7 @@
 package com.rivis.feng.website.common.handle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rivis.feng.website.common.enums.UserEnum;
 import com.rivis.feng.website.common.util.ResultDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,10 @@ public class AuthenctiationFailureHandle extends SimpleUrlAuthenticationFailureH
 
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(objectMapper.writeValueAsString(ResultDataUtil.error()));
+        response.getWriter().write(objectMapper.writeValueAsString(
+                ResultDataUtil.error(
+                        UserEnum.USER_LOGIN_ERROR.getCode(),
+                        UserEnum.USER_LOGIN_ERROR.getMessage())));
 
     }
 }
