@@ -1,5 +1,7 @@
 package com.rivis.feng.website.pojo.dto;
 
+import lombok.Data;
+
 /**
  * 登录入参
  *
@@ -7,6 +9,7 @@ package com.rivis.feng.website.pojo.dto;
  * @date 2018-04-25
  * @despaction
  */
+@Data
 public class LoginInDto {
 
     private String userPhone;
@@ -15,7 +18,7 @@ public class LoginInDto {
 
     private String checkCode;
 
-    public LoginInDto() {
+    /*public LoginInDto() {
     }
 
     public LoginInDto(String userPhone, String userPassword, String checkCode) {
@@ -55,5 +58,5 @@ public class LoginInDto {
                 ", userPassword='" + userPassword + '\'' +
                 ", checkCode='" + checkCode + '\'' +
                 '}';
-    }
+    }*/
 }

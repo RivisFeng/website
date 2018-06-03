@@ -1,12 +1,14 @@
 package com.rivis.feng.website.common.config;
 
+import com.rivis.feng.website.common.encoder.SystemPasswrodEncoder;
 import com.rivis.feng.website.common.handle.AuthenctiationFailureHandle;
 import com.rivis.feng.website.common.handle.AuthenctiationSuccessHandle;
-import com.rivis.feng.website.common.util.StringUtil;
+import com.rivis.feng.website.common.provider.SystemAuthenticationProvider;
 import com.rivis.feng.website.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,32 +36,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new SystemPasswrodEncoder();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new SystemAuthenticationProvider();
     }
 
     @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService()).passwordEncoder(
-                new PasswordEncoder() {
-                    @Override
-                    public String encode(CharSequence rawPassword) {
-                        if (!StringUtil.stringIsNull(rawPassword.toString())) {
-                            return StringUtil.encrypt(rawPassword.toString());
-                        }
-                        return "";
-                    }
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
-                    @Override
-                    public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                        try {
-                            return StringUtil.validatePassword(rawPassword.toString(), encodedPassword);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        return false;
-                    }
-                }
-        );
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService())
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override

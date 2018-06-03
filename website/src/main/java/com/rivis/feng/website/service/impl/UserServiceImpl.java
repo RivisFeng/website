@@ -41,9 +41,6 @@ public class UserServiceImpl implements UserService,UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     /**
      * web用户登录
      *
