@@ -8,3 +8,4 @@ spring:
     password: 'RivisFeng0310'
 mybatis:
   mapper-locations: 'classpath:mapper/*Mapper.xml'
+hello: hello world
